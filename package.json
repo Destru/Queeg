@@ -1,0 +1,32 @@
+{
+  "name": "csc-queeg",
+  "version": "1.0.0",
+  "description": "A simple chatbot for CSC on Heroku.",
+  "main": "index.js",
+  "engines": {
+    "node": "8.x",
+    "npm": "*"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/destru/csc-queeg.git"
+  },
+  "keywords": [
+    "heroku",
+    "discord.js"
+  ],
+  "author": "destru",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/destru/csc-queeg/issues"
+  },
+  "homepage": "https://github.com/destru/csc-queeg#readme",
+  "dependencies": {
+    "discord.js": "^12.5.3",
+    "dotenv": "^9.0.2"
+  }
+}
