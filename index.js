@@ -4,11 +4,19 @@ const client = new Discord.Client();
 const fetch = require("node-fetch");
 
 // magic strings 🦄
+const CHANNEL_WELCOME = '844871570211995678';
 const ROLE_SUSPECT = '829420138079846471';
 const TREBEK = '400786664861204481';
 
-// #voight-kampff accounts that are <1 week old
 client.on("guildMemberAdd", member => {
+  // random welcome giphy
+  fetch(`https://api.giphy.com/v1/gifs/random?api_key=${process.env.GIPHY_TOKEN}&tag=welcome&rating=g`)
+  .then(response => response.json())
+  .then(data => {
+    client.channels.cache.get(CHANNEL_WELCOME).send(data.embed_url);
+  });
+
+  // #voight-kampff accounts that are <1 week old
   if (Date.now() - member.user.createdAt < 1000*60*60*24*7) {
     member.roles.add(ROLE_SUSPECT);
   }
