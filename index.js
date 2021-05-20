@@ -2,12 +2,13 @@ require('dotenv').config();
 const Discord = require("discord.js");
 const client = new Discord.Client();
 
+// magic strings 🦄
 const ROLE_SUSPECT = '829420138079846471';
 
 // #voight-kampff accounts that are <1 week old
 client.on("guildMemberAdd", member => {
   if (Date.now() - member.user.createdAt < 1000*60*60*24*7) {
-    member.addRole(ROLE_SUSPECT);
+    member.roles.add(ROLE_SUSPECT);
   }
 });
 
@@ -20,9 +21,6 @@ client.on("message", message => {
 
   if(command === 'ping') {
     message.channel.send('Pong!');
-  } else
-  if(command === 'suspect') {
-    message.author.addRole(ROLE_SUSPECT);
   }
 });
 
