@@ -16,7 +16,7 @@ client.on("guildMemberAdd", member => {
 
 client.on("message", message => {
   // fuck you, Trebek
-  if(message.author.id === TREBEK && Math.random() < 0.05) {
+  if(message.author.id === TREBEK && Math.random() < 0.01) {
     fetch('https://insult.mattbas.org/api/insult.json')
     .then(response => response.json())
     .then(data => {
