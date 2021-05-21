@@ -58,6 +58,12 @@ client.on("message", message => {
       .then(data => {
         message.channel.send(data.data.embed_url);
       });
+  } else
+  if (message.author.id === process.env.ADMIN) {
+    if(command === 'message') {
+      let messageChannel = client.channels.cache.get(args.shift().replace(/\D/g, ''));
+      messageChannel.send(args.join(' '));
+    }
   }
 });
 
