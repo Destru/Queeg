@@ -23,10 +23,10 @@ client.on("guildMemberAdd", member => {
     channelWelcome.send(`${member} has been flagged for _Voight-Kampff_.`);
     channelSuspect.send(`Read the _pinned message_ for more information, ${member}`);
   } else {
-    fetch(`https://api.giphy.com/v1/gifs/random?api_key=${process.env.GIPHY_TOKEN}&tag=welcome&rating=g`)
+    fetch(`https://api.giphy.com/v1/gifs/random?api_key=${process.env.GIPHY_TOKEN}&tag=welcome+to+the+club&rating=g`)
       .then(response => response.json())
       .then(data => {
-        channelWelcome.send(data.embed_url);
+        channelWelcome.send(data.data.embed_url);
       });
   }
 });
@@ -50,6 +50,14 @@ client.on("message", message => {
 
   if (command === 'ping') {
     message.channel.send('Pong!');
+  } else 
+  if (command === 'giphy') {
+    let tag = encodeURI(args.join(' ') || message.channel.name);
+    fetch(`https://api.giphy.com/v1/gifs/random?api_key=${process.env.GIPHY_TOKEN}&tag=${tag}&rating=g`)
+      .then(response => response.json())
+      .then(data => {
+        message.channel.send(data.data.embed_url);
+      });
   }
 });
 
