@@ -13,9 +13,9 @@ client.on('ready', () => {
   });
 });
 
-client.on("guildMemberAdd", member => {
-  const channelWelcome = client.channels.cache.get('844871570211995678');
+client.on('guildMemberAdd', member => {
   const channelSuspect =  client.channels.cache.get('829418613051359292');
+  const channelWelcome = client.channels.cache.get('844871570211995678');
   const roleSuspect = '829420138079846471';
 
   if (Date.now() - member.user.createdAt < 1000 * 60 * 60 * 24 * 7) {
@@ -31,7 +31,7 @@ client.on("guildMemberAdd", member => {
   }
 });
 
-client.on("message", message => {
+client.on('message', message => {
   const TREBEK = '400786664861204481';
 
   if (message.author.id === TREBEK && Math.random() < 0.01) {
