@@ -22,7 +22,7 @@ const config = require('./config.json');
 const Discord = require("discord.js");
 const fs = require('fs');
 
-const prefix = process.env.PREFIX;
+const prefix = config.prefix;
 const version = process.env.npm_package_version || 'nodemon';
 
 const client = new Discord.Client();
@@ -64,25 +64,25 @@ client.on('guildMemberAdd', member => {
 });
 
 client.on('message', message => {
-  const TREBEK = '400786664861204481';
-  if (message.author.id === TREBEK && Math.random() < 0.01) {
+  if (message.author.id === config.insultUser && Math.random() < 0.01) {
     fetch('https://insult.mattbas.org/api/insult.json')
       .then(response => response.json())
       .then(data => {
-        message.channel.send(`${data.insult}, <@${TREBEK}>`);
+        message.channel.send(`${data.insult}, <@${config.insultUser}>`);
       });
   }
 
   if (!message.content.startsWith(prefix) || message.author.bot) return;
+
   const args = message.content.slice(prefix.length).trim().split(/ +/g);
   const commandInput = args.shift().toLowerCase();
-
   const command = client.commands.get(commandInput) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandInput));
+
   if (!command) return;
 
   if (command.args && !args.length) {
     let error = config.errorArgs;
-    if (command.example) error += `\n\`${prefix} ${command.name} ${command.example}\``;
+    if (command.example) error += `\n\`Example\` ${prefix}${command.name} ${command.example}`;
     return message.channel.send(error);
   }
 
