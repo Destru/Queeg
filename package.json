@@ -1,6 +1,6 @@
 {
   "name": "queeg",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "A simple chatbot for CSC on Heroku.",
   "main": "index.js",
   "engines": {
