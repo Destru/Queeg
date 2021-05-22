@@ -25,7 +25,7 @@ const fs = require('fs');
 const prefix = config.prefix;
 const version = process.env.npm_package_version || 'nodemon';
 
-const client = new Discord.Client();
+const client = new Discord.Client({ ws: { intents: ['GUILD_MEMBERS'] } });
 client.commands = new Discord.Collection();
 const commands = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 for (const file of commands) {
