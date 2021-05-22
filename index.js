@@ -18,14 +18,12 @@
 //   ╚═════╝╚══════╝ ╚═════╝ ╚═════╝
 
 require('dotenv').config();
-const config = require('./config.json');
-const Discord = require("discord.js");
+const Discord = require('discord.js');
+const { version } = require('./helpers');
 const fs = require('fs');
+const config = require('./config');
 
-const prefix = config.prefix;
-const version = process.env.npm_package_version || 'nodemon';
-
-const client = new Discord.Client({ ws: { intents: ['GUILD_MEMBERS'] } });
+const client = new Discord.Client({ ws: { intents: ['GUILDS', 'GUILD_MESSAGES', 'GUILD_MEMBERS'] } });
 client.commands = new Discord.Collection();
 const commands = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 for (const file of commands) {
@@ -72,9 +70,9 @@ client.on('message', message => {
       });
   }
 
-  if (!message.content.startsWith(prefix) || message.author.bot) return;
+  if (!message.content.startsWith(config.prefix) || message.author.bot) return;
 
-  const args = message.content.slice(prefix.length).trim().split(/ +/g);
+  const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
   const commandInput = args.shift().toLowerCase();
   const command = client.commands.get(commandInput) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandInput));
 
@@ -82,7 +80,7 @@ client.on('message', message => {
 
   if (command.args && !args.length) {
     let error = config.errorArgs;
-    if (command.example) error += `\n\`Example\` ${prefix}${command.name} ${command.example}`;
+    if (command.example) error += `\nE.g. \`${config.prefix}${command.name} ${command.example}\``;
     return message.channel.send(error);
   }
 

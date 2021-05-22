@@ -1,6 +1,7 @@
 {
-  "csc": "**Cyberpunk Social Club**",
-  "cscLogo": "",
+  "csc": "Cyberpunk Social Club",
+  "cscEmoji": "<:cscalt:837251418247004205>",
+  "cscLogo": "https://cdn.discordapp.com/emojis/837251418247004205.png?v=1",
   "errorAccess": "Access denied.",
   "errorArgs": "Missing arguments.",
   "errorExecute": "Execution error.",
