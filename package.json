@@ -16,11 +16,12 @@
     "url": "git+https://github.com/destru/queeg.git"
   },
   "keywords": [
-    "heroku",
-    "discord.js"
+    "chatbot",
+    "discord.js",
+    "heroku"
   ],
   "author": "destru",
-  "license": "MIT",
+  "license": "ISC",
   "bugs": {
     "url": "https://github.com/destru/queeg/issues"
   },
