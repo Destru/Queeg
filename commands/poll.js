@@ -3,7 +3,7 @@ const { alphabetEmoji, capitalize } = require('../helpers');
 
 module.exports = {
   name: 'poll',
-  description: 'Create a poll',
+  description: 'Create a poll.',
   args: true,
   example: 'who are the CSC? | communists | socialists | creatives',
   execute(message, args) {
@@ -11,9 +11,8 @@ module.exports = {
     let poll = args.join(' ');
     if (poll.includes('|')) {
       message.delete();
-      poll.split('|');
+      poll = poll.split('|');
       const question = capitalize(poll.shift());
-
       let description = '';
       poll.forEach((option, i) => {
         description = description + `${alphabetEmoji[i]} ${capitalize(option.trim())}\n`;

@@ -4,9 +4,9 @@ const { alphabetEmoji, version } = require('../helpers');
 const prettyMs = require('pretty-ms');
 
 module.exports = {
-  aliases: ['uptime', 'version'],
-  name: 'queeg',
-  description: 'Bot information',
+  aliases: ['bot-info'],
+  name: '!queeg',
+  description: 'Show bot information.',
   args: false,
   execute(message, args, client) {
     const embed = new Discord.MessageEmbed()

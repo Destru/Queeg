@@ -2,8 +2,7 @@ const fetch = require('node-fetch');
 
 module.exports = {
   name: 'giphy',
-  args: true,
-  description: 'Fetch GIPHY',
+  description: 'Fetch a random GIPHY.',
   example: 'hello world',
   execute(message, args) {
     let tag = encodeURI(args.join(' '));
