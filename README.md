@@ -1,3 +1,5 @@
+# Queeg
+Administrative chatbot for the [Cyberpunk Social Club](https://cyberpunksocial.club).
 ```js
 //   ██████╗██╗   ██╗██████╗ ███████╗██████╗ ██████╗ ██╗   ██╗███╗   ██╗██╗  ██╗
 //  ██╔════╝╚██╗ ██╔╝██╔══██╗██╔════╝██╔══██╗██╔══██╗██║   ██║████╗  ██║██║ ██╔╝
@@ -18,5 +20,3 @@
 //  ╚██████╗███████╗╚██████╔╝██████╔╝
 //   ╚═════╝╚══════╝ ╚═════╝ ╚═════╝
 ```
-# Queeg
-Administrative chatbot for the [Cyberpunk Social Club](https://cyberpunksocial.club).
