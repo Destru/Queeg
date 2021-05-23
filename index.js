@@ -52,9 +52,9 @@ client.on('message', message => {
   const command = client.commands.get(commandInput) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandInput));
 
   if (!command) return;
+  if (command.admin && !admin(message.author.id)) return message.channel.send(config.errorAccess);
 
   if (command.args && !args.length) {
-    if (command.admin && admin(message.author.id)) return message.channel.send(config.errorAccess);
     let error = config.errorArgs;
     if (command.example) error += `\nE.g. \`${config.prefix}${command.name} ${command.example}\``;
     return message.channel.send(error);
