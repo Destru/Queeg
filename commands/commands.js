@@ -25,10 +25,12 @@ module.exports = {
           .setTitle(command.description)
           .setFooter(`Queeg ${version}`, cscLogo);
 
-        if (command.aliases) embed.addField('Aliases', command.aliases.join(', '), true);
         if (command.example) embed.setDescription(`E.g. \`${prefix}${command.name} ${command.example}\``);
+
+        if (command.aliases) embed.addField('Aliases', command.aliases.join(', '), true);
         embed.addField('Arguments', command.args ? 'True' : 'False', true);
-        if (command.admin) embed.addField('Restricted', 'True', true);
+        if (command.admin) embed.addField('Restricted', 'Admin', true);
+        if (command.operator) embed.addField('Restricted', 'Operators', true);
 
         message.channel.send(embed);
       }
