@@ -1,8 +1,9 @@
 require('dotenv').config();
 const Discord = require('discord.js');
-const fetch = require('node-fetch');
 const fs = require('fs');
+
 const config = require('./config');
+const fetch = require('node-fetch');
 const { admin, version } = require('./helpers');
 
 const client = new Discord.Client({ ws: { intents: new Discord.Intents(Discord.Intents.ALL) }});

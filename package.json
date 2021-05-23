@@ -1,7 +1,7 @@
 {
   "name": "queeg",
   "version": "1.7.2",
-  "description": "A simple chatbot for CSC on Heroku.",
+  "description": "Administrative chatbot for the CSC.",
   "main": "index.js",
   "engines": {
     "node": "12.x",
@@ -20,7 +20,7 @@
     "discord.js",
     "heroku"
   ],
-  "author": "destru",
+  "author": "Destru",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/destru/queeg/issues"
