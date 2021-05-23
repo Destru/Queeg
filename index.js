@@ -45,14 +45,6 @@ client.on('guildMemberAdd', member => {
 });
 
 client.on('message', message => {
-  if (message.author.id === config.insultUser && Math.random() < 0.01) {
-    fetch('https://insult.mattbas.org/api/insult.json')
-      .then(response => response.json())
-      .then(data => {
-        message.channel.send(`${data.insult}, <@${config.insultUser}>`);
-      });
-  }
-
   if (!message.content.startsWith(config.prefix) || message.author.bot) return;
 
   const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
