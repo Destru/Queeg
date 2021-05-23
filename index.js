@@ -22,7 +22,7 @@ const Discord = require('discord.js');
 const fetch = require('node-fetch');
 const fs = require('fs');
 const config = require('./config');
-const { version } = require('./helpers');
+const { admin, version } = require('./helpers');
 
 const client = new Discord.Client({ ws: { intents: new Discord.Intents(Discord.Intents.ALL) }});
 client.commands = new Discord.Collection();
@@ -80,6 +80,7 @@ client.on('message', message => {
   if (!command) return;
 
   if (command.args && !args.length) {
+    if (command.admin && admin(message.author.id)) return message.channel.send(config.errorAccess);
     let error = config.errorArgs;
     if (command.example) error += `\nE.g. \`${config.prefix}${command.name} ${command.example}\``;
     return message.channel.send(error);

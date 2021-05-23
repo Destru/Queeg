@@ -8,12 +8,8 @@ module.exports = {
   args: true,
   example: '#memes <:frog:845664454557302784>',
   execute(message, args, client) {
-    if (admin(message.author.id)) {
-      message.delete();
-      let messageChannel = client.channels.cache.get(args.shift().replace(/\D/g, ''));
-      messageChannel.send(args.join(' '));
-    } else {
-      message.channel.send(errorAccess);
-    }
+    message.delete();
+    let messageChannel = client.channels.cache.get(args.shift().replace(/\D/g, ''));
+    messageChannel.send(args.join(' '));
   },
 };
