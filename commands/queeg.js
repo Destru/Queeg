@@ -5,7 +5,7 @@ const prettyMs = require('pretty-ms');
 
 module.exports = {
   aliases: ['bot-info'],
-  name: '!queeg',
+  name: 'queeg',
   description: 'Show bot information.',
   args: false,
   execute(message, args, client) {
