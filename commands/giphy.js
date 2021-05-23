@@ -1,9 +1,9 @@
-const fetch = require("node-fetch");
+const fetch = require('node-fetch');
 
 module.exports = {
   name: 'giphy',
-  description: 'Look up giphy',
   args: true,
+  description: 'Fetch GIPHY',
   example: 'hello world',
   execute(message, args) {
     let tag = encodeURI(args.join(' '));

@@ -19,11 +19,12 @@
 
 require('dotenv').config();
 const Discord = require('discord.js');
-const { version } = require('./helpers');
+const fetch = require('node-fetch');
 const fs = require('fs');
 const config = require('./config');
+const { version } = require('./helpers');
 
-const client = new Discord.Client({ ws: { intents: ['GUILDS', 'GUILD_MESSAGES', 'GUILD_MEMBERS'] } });
+const client = new Discord.Client({ ws: { intents: new Discord.Intents(Discord.Intents.ALL) }});
 client.commands = new Discord.Collection();
 const commands = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 for (const file of commands) {
@@ -53,7 +54,7 @@ client.on('guildMemberAdd', member => {
     channelWelcome.send(`${member} has been flagged for _Voight-Kampff_.`);
     channelSuspect.send(`Read the _pinned message_ for more information, ${member}`);
   } else {
-    fetch(`https://api.giphy.com/v1/gifs/random?api_key=${process.env.GIPHY_TOKEN}&tag=welcome+to+the+club&rating=g`)
+    fetch(`https://api.giphy.com/v1/gifs/random?api_key=${process.env.GIPHY_TOKEN}&tag=welcome+to+the+club&rating=pg13`)
       .then(response => response.json())
       .then(data => {
         channelWelcome.send(data.data.embed_url);

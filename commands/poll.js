@@ -7,9 +7,11 @@ module.exports = {
   args: true,
   example: 'who are the CSC? | communists | socialists | creatives',
   execute(message, args) {
-    let content = args.join(' ');
-    if (content.includes('|')) {
-      const poll = content.split('|');
+    message.delete();
+    let poll = args.join(' ');
+    if (poll.includes('|')) {
+      message.delete();
+      poll.split('|');
       const question = capitalize(poll.shift());
 
       let description = '';

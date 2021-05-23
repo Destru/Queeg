@@ -6,8 +6,9 @@ module.exports = {
   args: true,
   example: 'should ska music be legal?',
   execute(message, args) {
-    let content = args.join(' ');
-    message.channel.send(capitalize(content))
+    message.delete();
+    let ask = args.join(' ');
+    message.channel.send(capitalize(ask))
       .then(message => {
         message.react('462126280704262144');
         message.react('462126761098870784');
