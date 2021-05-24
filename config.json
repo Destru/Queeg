@@ -8,7 +8,7 @@
     "access": "Access denied.",
     "args": "Missing arguments.",
     "execute": "Execution error.",
-    "vote": "You must `!vote` to access this command.",
+    "vote": "You must `!vote` to access this command."
   },
   "prefix": "!",
   "roles": {
