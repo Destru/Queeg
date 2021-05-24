@@ -10,6 +10,7 @@ module.exports = {
   execute(message, args, client) {
     if (message.member.roles.cache.has(config.roles.voted)) {
       const embed = new Discord.MessageEmbed().setColor('#ffff00').setFooter(config.csc.name, config.csc.logo);
+
       fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php')
         .then(response => response.json())
         .then(data => {
@@ -21,8 +22,8 @@ module.exports = {
             .addField('Category', drink.strCategory, true)
             .addField('Glass', drink.strGlass, true);
           if (drink.strIBA) embed.addField('IBA', drink.strIBA, true);
+          message.channel.send(embed);
         });
-      message.channel.send(embed);
     } else {
       message.channel.send(config.error.vote);
     }
