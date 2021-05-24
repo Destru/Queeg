@@ -9,7 +9,7 @@ module.exports = {
   execute(message, args, client) {
     if (message.member.roles.cache.has(config.roles.voted)) {
       message.channel.send(`Certainly, comrade ${message.member}`);
-      message.channel.send(drinkEmoji[Math.floor(Math.random() * drinkEmoji.length)]);
+      message.channel.send(`:${drinkEmoji[Math.floor(Math.random() * drinkEmoji.length)]}:`);
     } else {
       message.channel.send(config.error.vote);
     }
