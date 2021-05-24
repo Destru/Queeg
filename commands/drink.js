@@ -17,7 +17,7 @@ module.exports = {
           const drink = data.drinks[0];
           embed
             .setTitle(drink.strDrink)
-            .setDescription(`Enjoy your drink, comrade ${message.member}.`)
+            .setDescription(`Enjoy your drink, comrade ${message.member}`)
             .setImage(drink.strDrinkThumb)
             .addField('Category', drink.strCategory, true)
             .addField('Glass', drink.strGlass, true);
