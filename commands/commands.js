@@ -8,12 +8,10 @@ module.exports = {
     description: 'List all commands, or details on a specific command.',
     example: 'ping',
     execute(message, args) {
-      const data = [];
       const { commands } = message.client;
 
       if(!args.length) {
-        data.push(commands.map(command => `\`${prefix}${command.name}\``).join(', '));
-        message.channel.send(data);
+        message.channel.send(commands.filter(command => !command.private).map(command => `\`${prefix}${command.name}\``).join(', '));
       } else {
         const name = args[0].toLowerCase();
         const command = commands.get(name) || commands.find(c => c.aliases && c.aliases.includes(name));
