@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const { csc, cscLogo } = require('../config');
+const { csc } = require('../config');
 const { alphabetEmoji, version } = require('../helpers');
 const prettyMs = require('pretty-ms');
 
@@ -19,7 +19,7 @@ module.exports = {
         { name: 'Uptime', value: prettyMs(client.uptime), inline: true },
         { name: 'Version', value: version, inline: true },
       )
-      .setFooter(csc, cscLogo);
+      .setFooter(csc.name, csc.logo);
     message.channel.send(embed);
   },
 };

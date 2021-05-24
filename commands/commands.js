@@ -29,8 +29,7 @@ module.exports = {
 
         if (command.aliases) embed.addField('Aliases', command.aliases.join(', '), true);
         embed.addField('Arguments', command.args ? 'True' : 'False', true);
-        if (command.admin) embed.addField('Restricted', 'Admin', true);
-        if (command.operator) embed.addField('Restricted', 'Operators', true);
+        if (command.restricted) embed.addField('Restricted', command.restricted, true);
 
         message.channel.send(embed);
       }

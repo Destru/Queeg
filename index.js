@@ -29,10 +29,9 @@ client.on('ready', () => {
 client.on('guildMemberAdd', member => {
   const channelSuspect =  client.channels.cache.get('829418613051359292');
   const channelWelcome = client.channels.cache.get('844871570211995678');
-  const roleSuspect = '829420138079846471';
 
   if (Date.now() - member.user.createdAt < 1000 * 60 * 60 * 24 * 7) {
-    member.roles.add(roleSuspect);
+    member.roles.add(config.roles.suspect);
     channelWelcome.send(`${member} has been flagged for _Voight-Kampff_.`);
     channelSuspect.send(`Read the _pinned message_ for more information, ${member}`);
   } else {
@@ -52,10 +51,10 @@ client.on('message', message => {
   const command = client.commands.get(commandInput) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandInput));
 
   if (!command) return;
-  if (command.admin && !admin(message.author.id)) return message.channel.send(config.errorAccess);
+  if (command.admin && !admin(message.author.id)) return message.channel.send(config.error.access);
 
   if (command.args && !args.length) {
-    let error = config.errorArgs;
+    let error = config.error.args;
     if (command.example) error += `\nE.g. \`${config.prefix}${command.name} ${command.example}\``;
     return message.channel.send(error);
   }
@@ -64,7 +63,7 @@ client.on('message', message => {
     command.execute(message, args, client);
   } catch (error) {
     console.error(error);
-    message.channel.send(config.errorExecute);
+    message.channel.send(config.error.execute);
   }
 });
 

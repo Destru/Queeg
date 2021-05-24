@@ -4,8 +4,8 @@ const { errorAccess } = require('../config');
 module.exports = {
   name: 'say',
   description: 'Send a message.',
-  admin: true,
   args: true,
+  restricted: 'Admin',
   example: '#memes <:frog:845664454557302784>',
   execute(message, args, client) {
     message.delete();

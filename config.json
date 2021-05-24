@@ -1,9 +1,18 @@
 {
-  "csc": "Cyberpunk Social Club",
-  "cscEmoji": "<:cscalt:837251418247004205>",
-  "cscLogo": "https://cdn.discordapp.com/emojis/837251418247004205.png?v=1",
-  "errorAccess": "Access denied.",
-  "errorArgs": "Missing arguments.",
-  "errorExecute": "Execution error.",
-  "prefix": "!"
+  "csc": {
+    "name": "Cyberpunk Social Club",
+    "emoji": "<:cscalt:837251418247004205>",
+    "logo": "https://cdn.discordapp.com/emojis/837251418247004205.png?v=1"
+  },
+  "error": {
+    "access": "Access denied.",
+    "args": "Missing arguments.",
+    "execute": "Execution error.",
+    "vote": "You must `!vote` to access this command.",
+  },
+  "prefix": "!",
+  "roles": {
+    "suspect": "829420138079846471",
+    "voted": "827915811724460062"
+  }
 }
