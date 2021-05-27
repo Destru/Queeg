@@ -12,7 +12,7 @@ module.exports = {
     const embed = new Discord.MessageEmbed()
       .setColor('#ffff00')
       .setTitle(`${alphabetEmoji[16]} ${alphabetEmoji[20]} ${alphabetEmoji[4]} ${alphabetEmoji[4]} ${alphabetEmoji[6]}`)
-      .setDescription('A backup computer that replaces Holly for certain tasks.\nhttps://github.com/destru/queeg')
+      .setDescription('A backup computer that replaces Holly for certain tasks.\n[GitHub repository.](https://github.com/destru/queeg)')
       .setThumbnail('https://i.imgur.com/3hPFDFb.jpg')
       .addFields(
         { name: 'Latency', value: `${Date.now() - message.createdTimestamp}ms / ${Math.round(client.ws.ping)}ms`, inline: true},
