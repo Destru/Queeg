@@ -5,7 +5,7 @@ module.exports = {
   description: 'Show uptime.',
   args: false,
   private: true,
-  execute(message, args, client) {
-    message.channel.send(prettyMs(client.uptime));
+  execute(message) {
+    message.channel.send(prettyMs(message.client.uptime));
   },
 };

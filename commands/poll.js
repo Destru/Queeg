@@ -1,5 +1,5 @@
-const Discord = require('discord.js');
-const { alphabetEmoji, capitalize } = require('../helpers');
+const Discord = require('discord.js')
+const { alphabetEmoji, capitalize } = require('../helpers')
 
 module.exports = {
   name: 'poll',
@@ -7,30 +7,30 @@ module.exports = {
   args: true,
   example: 'who are the CSC? | communists | socialists | creatives',
   execute(message, args) {
-    message.delete();
-    let poll = args.join(' ');
+    message.delete()
+    let poll = args.join(' ')
     if (poll.includes('|')) {
-      message.delete();
-      poll = poll.split('|');
-      const question = capitalize(poll.shift());
-      let description = '';
+      message.delete()
+      poll = poll.split('|')
+      const question = capitalize(poll.shift())
+      let description = ''
       poll.forEach((option, i) => {
         description = description + `${alphabetEmoji[i]} ${capitalize(option.trim())}\n`;
-      });
+      })
 
       const embed = new Discord.MessageEmbed()
         .setTitle(question)
         .setColor('#ffff00')
-        .setDescription(description);
+        .setDescription(description)
 
       message.channel.send(embed)
         .then(message => {
           for (let i = 0; i < poll.length; i++) {
-            message.react(alphabetEmoji[i]);
+            message.react(alphabetEmoji[i])
           }
-        });
+        })
     } else {
-      message.channel.send('Poll malformed.');
+      message.channel.send('Poll malformed.')
     }
   },
 }

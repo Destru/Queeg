@@ -5,7 +5,7 @@ module.exports = {
   description: 'Show version.',
   args: false,
   private: true,
-  execute(message, args, client) {
+  execute(message) {
     message.channel.send(version);
   },
 };

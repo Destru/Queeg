@@ -27,31 +27,31 @@ client.on('ready', () => {
   })
 })
 
-cron.schedule('* * * * *', () => {
+cron.schedule('0 8 * * *', () => {
   const now = new Date()
 
-  fetch(`https://byabbe.se/on-this-day/${now.getMonth()}/${now.getDate()}/deaths.json`)
+  fetch(`https://byabbe.se/on-this-day/${now.getMonth()+1}/${now.getDate()}/deaths.json`)
     .then(response => response.json())
     .then(data => {
       const deaths = getRandom('byabbe', data.deaths, 24)
       const embed = new Discord.MessageEmbed()
         .setColor('#ffff00')
-        .setTitle(`Today is ${days[now.getDay()]}, ${data.date}.`)
+        .setTitle(`${days[now.getDay()]}, ${data.date} :coffin: :headstone:`)
 
-      deaths.forEach((death, i) => {
-        embed.addField(`:headstone: ${death.year}`, `[${death.description}](${death.wikipedia[0].wikipedia})`, true)
+      deaths.forEach((death) => {
+        embed.addField(death.year, `[${death.description}](${death.wikipedia[0].wikipedia})`, true)
       })
 
-      client.channels.cache.get(config.channels.test).send(embed)
+      client.channels.cache.get(config.channels.dailyDeaths).send(embed)
     })
 
-  fetch(`https://byabbe.se/on-this-day/${now.getMonth()}/${now.getDate()}/events.json`)
+  fetch(`https://byabbe.se/on-this-day/${now.getMonth()+1}/${now.getDate()}/events.json`)
     .then(response => response.json())
     .then(data => {
-      const events = getRandom('byabbe', data.events, 5)
+      const events = getRandom('byabbe', data.events, 6)
       const embed = new Discord.MessageEmbed()
         .setColor('#ffff00')
-        .setTitle(`Today is ${days[now.getDay()]}, ${data.date}.`)
+        .setTitle(`${days[now.getDay()]}, ${data.date} :newspaper: :face_with_monocle:`)
 
       events.forEach(event => {
         let description = event.description
@@ -59,14 +59,14 @@ cron.schedule('* * * * *', () => {
         event.wikipedia.forEach((wiki, i) => {
           let link = `[${wiki.title}](${wiki.wikipedia})`
 
-          if (i === 0) description += `\n:book: ${link}`
+          if (i === 0) description += `\n ${link}`
           else description += `, ${link}`
         })
 
-        embed.addField(event.year, description)
+        embed.addField(event.year, `${description}`)
       })
 
-      client.channels.cache.get(config.channels.test).send(embed)
+      client.channels.cache.get(config.channels.dailyEvents).send(embed)
     })
 })
 
