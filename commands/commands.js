@@ -19,10 +19,10 @@ module.exports = {
 
         const embed = new Discord.MessageEmbed()
           .setColor('#ffff00')
-          .setTitle(command.description)
+          .setTitle(`${prefix}${command.name}`)
+          .setDescription(command.description)
 
-        if (command.example) embed.setDescription(`E.g. \`${prefix}${command.name} ${command.example}\``)
-
+        if (command.example) embed.addField(`Example`, `\`${prefix}${command.name} ${command.example}\``)
         if (command.aliases) embed.addField('Aliases', command.aliases.join(', '), true)
         embed.addField('Arguments', command.args ? 'True' : 'False', true)
         if (command.restricted) embed.addField('Restricted', command.restricted, true)

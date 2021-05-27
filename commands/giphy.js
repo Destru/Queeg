@@ -2,7 +2,7 @@ const fetch = require('node-fetch')
 
 module.exports = {
   name: 'giphy',
-  description: 'Fetch a random GIPHY.',
+  description: `Fetch a random GIPHY. Uses the name of the channel if arguments are omitted.`,
   example: 'hello world',
   execute(message, args) {
     let tag = encodeURI(args.join(' '))
