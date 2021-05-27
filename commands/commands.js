@@ -17,12 +17,12 @@ module.exports = {
 
         if (!command) return message.channel.send('Invalid command.')
 
-        const embed = new Discord.MessageEmbed()
-          .setColor('#ffff00')
+        const embed = new Discord.MessageEmbed().setColor('#ffff00')
           .setTitle(`${prefix}${command.name}`)
           .setDescription(command.description)
 
         if (command.example) embed.addField(`Example`, `\`${prefix}${command.name} ${command.example}\``)
+
         if (command.aliases) embed.addField('Aliases', command.aliases.join(', '), true)
         embed.addField('Arguments', command.args ? 'True' : 'False', true)
         if (command.restricted) embed.addField('Restricted', command.restricted, true)

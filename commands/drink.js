@@ -23,6 +23,7 @@ module.exports = {
             .addField('Category', drink.strCategory, true)
             .addField('Glass', drink.strGlass, true)
             .addField('Recipe', recipe, true)
+
           message.channel.send(embed)
         })
     } else {

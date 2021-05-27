@@ -9,9 +9,8 @@ module.exports = {
   execute(message, args) {
     message.delete()
     let ask = capitalize(args.join(' '))
-    const embed = new Discord.MessageEmbed()
-    .setTitle(ask)
-    .setColor('#ffff00')
+    const embed = new Discord.MessageEmbed().setColor('#ffff00')
+      .setTitle(ask)
 
     message.channel.send(embed)
       .then(message => {

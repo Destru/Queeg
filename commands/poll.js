@@ -18,9 +18,8 @@ module.exports = {
         description = description + `${alphabetEmoji[i]} ${capitalize(option.trim())}\n`;
       })
 
-      const embed = new Discord.MessageEmbed()
+      const embed = new Discord.MessageEmbed().setColor('#ffff00')
         .setTitle(question)
-        .setColor('#ffff00')
         .setDescription(description)
 
       message.channel.send(embed)
