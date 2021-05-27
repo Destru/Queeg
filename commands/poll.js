@@ -7,8 +7,8 @@ module.exports = {
   args: true,
   example: 'who are the CSC? | communists | socialists | creatives',
   execute(message, args) {
-    message.delete()
     let poll = args.join(' ')
+
     if (poll.includes('|')) {
       message.delete()
       poll = poll.split('|')
