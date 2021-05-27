@@ -9,8 +9,8 @@ module.exports = {
   execute(message, args) {
     let poll = args.join(' ')
 
+    message.delete()
     if (poll.includes('|')) {
-      message.delete()
       poll = poll.split('|')
       const question = capitalize(poll.shift())
       let description = ''
