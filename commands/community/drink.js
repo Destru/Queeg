@@ -1,6 +1,7 @@
 const Discord = require('discord.js')
-const config = require('../../config')
 const fetch = require('node-fetch')
+const config = require('../../config')
+const { randomEmoji } = require('../../helpers')
 
 module.exports = {
   name: 'drink',
@@ -15,14 +16,13 @@ module.exports = {
         .then((response) => response.json())
         .then((data) => {
           const drink = data.drinks[0]
-          const recipe = `[Google](https://google.com/search?q=${encodeURI(
-            drink.strDrink
-          )}+drink+recipe)`
+          const query = encodeURI(`${drink.strDrink} drink recipe`)
+          const recipe = `[Google](https://google.com/search?q=${query})`
 
           embed
             .setTitle(drink.strDrink)
             .setDescription(
-              `Enjoy your drink, comrade ${message.author} ${config.emoji}`
+              `Enjoy your drink, comrade ${message.author} ${randomEmoji()}`
             )
             .setImage(drink.strDrinkThumb)
             .addField('Category', drink.strCategory, true)

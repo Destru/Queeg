@@ -4,7 +4,7 @@ const fetch = require('node-fetch')
 const ordinal = require('ordinal/indicator')
 
 const config = require('./config')
-const { getRandom } = require('./helpers')
+const { randomEntries } = require('./helpers')
 
 const deathsChannel = '832394205422026813'
 const eventsChannel = '160320676580818951'
@@ -18,12 +18,10 @@ const dailyDeaths = (client, channel) => {
   )
     .then((response) => response.json())
     .then((data) => {
-      const deaths = getRandom('byabbe', data.deaths, 18) // Hail, Satan!
+      const deaths = randomEntries(data.deaths, 18, 'byabbe') // Hail, Satan!
       const embed = new Discord.MessageEmbed()
         .setColor(config.embedColor)
-        .setTitle(
-          `Random Deaths on ${data.date}${ordinal(now.getDate())} :headstone:`
-        )
+        .setTitle(`Deaths on ${data.date}${ordinal(now.getDate())} :headstone:`)
         .setImage('https://media.giphy.com/media/h5NLPVn3rg0Rq/giphy.gif')
 
       deaths.forEach((death) => {
@@ -48,12 +46,10 @@ const dailyEvents = (client, channel) => {
   )
     .then((response) => response.json())
     .then((data) => {
-      const events = getRandom('byabbe', data.events, 5)
+      const events = randomEntries(data.events, 5, 'byabbe')
       const embed = new Discord.MessageEmbed()
         .setColor(config.embedColor)
-        .setTitle(
-          `Random Events on ${data.date}${ordinal(now.getDate())} :newspaper:`
-        )
+        .setTitle(`Events on ${data.date}${ordinal(now.getDate())} :newspaper:`)
 
       events.forEach((event) => {
         let description = event.description
@@ -74,18 +70,15 @@ const dailyEvents = (client, channel) => {
 
 module.exports = {
   load: (client) => {
-    console.log('Loading crontab.')
-
     cron.schedule(
       '0 8 * * *',
       () => {
-        console.log('Running daily tasks.')
+        console.log('Running 8am tasks.')
 
         dailyDeaths(client, deathsChannel)
         dailyEvents(client, eventsChannel)
       },
       {
-        scheduled: true,
         timezone: 'America/Los_Angeles',
       }
     )

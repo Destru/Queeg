@@ -1,9 +1,11 @@
+const { emoji } = require('./config')
+
 module.exports = {
   alphabetEmoji:
     '🇦 🇧 🇨 🇩 🇪 🇫 🇬 🇭 🇮 🇯 🇰 🇱 🇲 🇳 🇴 🇵 🇶 🇷 🇸 🇹 🇺 🇻 🇼 🇽 🇾 🇿'.split(
       ' '
     ),
-  getRandom: (api, a, n) => {
+  randomEntries: (a, n, api = false) => {
     let result = new Array(n)
     ;(len = a.length), (taken = new Array(len))
 
@@ -20,6 +22,14 @@ module.exports = {
 
     if (api === 'byabbe') result.sort((a, b) => a.year - b.year)
     return result
+  },
+  randomEmoji: () => {
+    const emoji = [
+      '<:cscalt:837251418247004205>',
+      '<:cscbob:846528128524091422>',
+      '<:csc:403256716583632906>',
+    ]
+    return emoji[Math.floor(Math.random() * emoji.length)]
   },
   isAdmin: (user) => {
     return user === process.env.ADMIN

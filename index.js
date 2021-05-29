@@ -1,5 +1,4 @@
 require('dotenv').config()
-require('./crontab')
 
 const fs = require('fs')
 const Discord = require('discord.js')
