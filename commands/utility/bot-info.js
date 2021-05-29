@@ -4,7 +4,7 @@ const { embedColor } = require('../../config')
 const { version } = require('../../helpers')
 
 module.exports = {
-  name: 'about',
+  name: 'bot-info',
   description: 'Show bot information.',
   aliases: ['queeg'],
   args: false,
