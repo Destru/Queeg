@@ -1,7 +1,5 @@
 {
   "channel": {
-    "dailyDeaths": "832394205422026813",
-    "dailyEvents": "160320676580818951",
     "test": "845382463685132288"
   },
   "embedColor": "#ffff00",
@@ -13,7 +11,7 @@
     "vote": "You must `!vote` to access this command."
   },
   "prefix": "!",
-  "roles": {
+  "role": {
     "voted": "827915811724460062"
   }
 }

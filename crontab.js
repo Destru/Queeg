@@ -6,6 +6,8 @@ const ordinal = require('ordinal/indicator')
 const config = require('./config')
 const { getRandom } = require('./helpers')
 
+const deathsChannel = '832394205422026813'
+const eventsChannel = '160320676580818951'
 const now = new Date()
 
 const dailyDeaths = (client, channel) => {
@@ -75,12 +77,12 @@ module.exports = {
     console.log('Loading crontab.')
 
     cron.schedule(
-      '* * * * *',
+      '0 8 * * *',
       () => {
         console.log('Running daily tasks.')
 
-        dailyDeaths(client, config.channel.test)
-        dailyEvents(client, config.channel.test)
+        dailyDeaths(client, deathsChannel)
+        dailyEvents(client, eventsChannel)
       },
       {
         scheduled: true,
