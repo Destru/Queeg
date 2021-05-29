@@ -1,4 +1,4 @@
-const { version } = require('../helpers');
+const { version } = require('../../helpers')
 
 module.exports = {
   name: 'version',
@@ -6,6 +6,6 @@ module.exports = {
   args: false,
   private: true,
   execute(message) {
-    message.channel.send(version);
+    message.channel.send(version)
   },
-};
+}

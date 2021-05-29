@@ -1,0 +1,91 @@
+const Discord = require('discord.js')
+const cron = require('node-cron')
+const fetch = require('node-fetch')
+const ordinal = require('ordinal/indicator')
+
+const config = require('./config')
+const { getRandom } = require('./helpers')
+
+const now = new Date()
+
+const dailyDeaths = (client, channel) => {
+  fetch(
+    `https://byabbe.se/on-this-day/${
+      now.getMonth() + 1
+    }/${now.getDate()}/deaths.json`
+  )
+    .then((response) => response.json())
+    .then((data) => {
+      const deaths = getRandom('byabbe', data.deaths, 18) // Hail, Satan!
+      const embed = new Discord.MessageEmbed()
+        .setColor(config.embedColor)
+        .setTitle(
+          `Random Deaths on ${data.date}${ordinal(now.getDate())} :headstone:`
+        )
+        .setImage('https://media.giphy.com/media/h5NLPVn3rg0Rq/giphy.gif')
+
+      deaths.forEach((death) => {
+        let year = death.year
+        if (year.match(/-/)) year = `${year.replace('-', '')} BC`
+        embed.addField(
+          year,
+          `[${death.description}](${death.wikipedia[0].wikipedia})`,
+          true
+        )
+      })
+
+      client.channels.cache.get(channel).send(embed)
+    })
+}
+
+const dailyEvents = (client, channel) => {
+  fetch(
+    `https://byabbe.se/on-this-day/${
+      now.getMonth() + 1
+    }/${now.getDate()}/events.json`
+  )
+    .then((response) => response.json())
+    .then((data) => {
+      const events = getRandom('byabbe', data.events, 5)
+      const embed = new Discord.MessageEmbed()
+        .setColor(config.embedColor)
+        .setTitle(
+          `Random Events on ${data.date}${ordinal(now.getDate())} :newspaper:`
+        )
+
+      events.forEach((event) => {
+        let description = event.description
+
+        event.wikipedia.forEach((wiki, i) => {
+          let link = `[${wiki.title}](${wiki.wikipedia})`
+
+          if (i === 0) description += `\n ${link}`
+          else description += `, ${link}`
+        })
+
+        embed.addField(event.year, `${description}`)
+      })
+
+      client.channels.cache.get(channel).send(embed)
+    })
+}
+
+module.exports = {
+  load: (client) => {
+    console.log('Loading crontab.')
+
+    cron.schedule(
+      '* * * * *',
+      () => {
+        console.log('Running daily tasks.')
+
+        dailyDeaths(client, config.channel.test)
+        dailyEvents(client, config.channel.test)
+      },
+      {
+        scheduled: true,
+        timezone: 'America/Los_Angeles',
+      }
+    )
+  },
+}

@@ -31,7 +31,10 @@
     "dotenv": "^9.0.2",
     "node-cron": "^3.0.0",
     "node-fetch": "^2.6.1",
+    "ordinal": "^1.0.3",
     "pretty-ms": "^7.0.1"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "prettier": "2.3.0"
+  }
 }

@@ -1,14 +1,11 @@
 {
-  "csc": {
-    "id": "160320676580818951",
-    "name": "Cyberpunk Social Club",
-    "emoji": "<:cscalt:837251418247004205>"
-  },
-  "channels": {
+  "channel": {
     "dailyDeaths": "832394205422026813",
     "dailyEvents": "160320676580818951",
     "test": "845382463685132288"
   },
+  "embedColor": "#ffff00",
+  "emoji": "<:cscalt:837251418247004205>",
   "error": {
     "access": "Access denied.",
     "args": "Missing arguments.",
@@ -17,7 +14,6 @@
   },
   "prefix": "!",
   "roles": {
-    "suspect": "829420138079846471",
     "voted": "827915811724460062"
   }
 }

@@ -1,4 +1,4 @@
-const prettyMs = require('pretty-ms');
+const prettyMs = require('pretty-ms')
 
 module.exports = {
   name: 'uptime',
@@ -6,6 +6,6 @@ module.exports = {
   args: false,
   private: true,
   execute(message) {
-    message.channel.send(prettyMs(message.client.uptime));
+    message.channel.send(prettyMs(message.client.uptime))
   },
-};
+}

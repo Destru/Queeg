@@ -1,114 +1,38 @@
 require('dotenv').config()
-const Discord = require('discord.js')
+require('./crontab')
+
 const fs = require('fs')
+const Discord = require('discord.js')
 
-const config = require('./config')
-const cron = require('node-cron')
-const fetch = require('node-fetch')
-const { isAdmin, days, getRandom, version } = require('./helpers')
+const client = new Discord.Client({
+  ws: { intents: new Discord.Intents(Discord.Intents.ALL) },
+})
 
-const client = new Discord.Client({ ws: { intents: new Discord.Intents(Discord.Intents.ALL) }})
 client.commands = new Discord.Collection()
-const commands = fs.readdirSync('./commands').filter(file => file.endsWith('.js'))
-for (const file of commands) {
-  const command = require(`./commands/${file}`)
-  client.commands.set(command.name, command)
+
+const commandFolders = fs.readdirSync('./commands')
+
+for (const folder of commandFolders) {
+  const commandFiles = fs
+    .readdirSync(`./commands/${folder}`)
+    .filter((file) => file.endsWith('.js'))
+  for (const file of commandFiles) {
+    const command = require(`./commands/${folder}/${file}`)
+    client.commands.set(command.name, command)
+  }
 }
 
-client.on('ready', () => {
-  console.log(`Queeg ${version} is online.`)
-  client.user.setPresence({
-    status: 'online',
-    activity: {
-      name: 'Socialist Propaganda',
-      type: 'STREAMING',
-      url: 'https://twitch.tv/notdestru',
-    }
-  })
-})
+const eventFiles = fs
+  .readdirSync('./events')
+  .filter((file) => file.endsWith('.js'))
 
-cron.schedule('0 8 * * *', () => {
-  const now = new Date()
-
-  fetch(`https://byabbe.se/on-this-day/${now.getMonth()+1}/${now.getDate()}/deaths.json`)
-    .then(response => response.json())
-    .then(data => {
-      const deaths = getRandom('byabbe', data.deaths, 24)
-      const embed = new Discord.MessageEmbed()
-        .setColor('#ffff00')
-        .setTitle(`${days[now.getDay()]}, ${data.date} :coffin: :headstone:`)
-
-      deaths.forEach((death) => {
-        embed.addField(death.year, `[${death.description}](${death.wikipedia[0].wikipedia})`, true)
-      })
-
-      client.channels.cache.get(config.channels.dailyDeaths).send(embed)
-    })
-
-  fetch(`https://byabbe.se/on-this-day/${now.getMonth()+1}/${now.getDate()}/events.json`)
-    .then(response => response.json())
-    .then(data => {
-      const events = getRandom('byabbe', data.events, 6)
-      const embed = new Discord.MessageEmbed()
-        .setColor('#ffff00')
-        .setTitle(`${days[now.getDay()]}, ${data.date} :newspaper: :face_with_monocle:`)
-
-      events.forEach(event => {
-        let description = event.description
-
-        event.wikipedia.forEach((wiki, i) => {
-          let link = `[${wiki.title}](${wiki.wikipedia})`
-
-          if (i === 0) description += `\n ${link}`
-          else description += `, ${link}`
-        })
-
-        embed.addField(event.year, `${description}`)
-      })
-
-      client.channels.cache.get(config.channels.dailyEvents).send(embed)
-    })
-})
-
-client.on('guildMemberAdd', member => {
-  const channelSuspect =  client.channels.cache.get('829418613051359292')
-  const channelWelcome = client.channels.cache.get('844871570211995678')
-
-  if (Date.now() - member.user.createdAt < 1000 * 60 * 60 * 24 * 7) {
-    member.roles.add(config.roles.suspect)
-    channelWelcome.send(`${member} has been flagged for _Voight-Kampff_.`)
-    channelSuspect.send(`Read the _pinned message_ for more information, ${member}`)
+for (const file of eventFiles) {
+  const event = require(`./events/${file}`)
+  if (event.once) {
+    client.once(event.name, (...args) => event.execute(...args, client))
   } else {
-    fetch(`https://api.giphy.com/v1/gifs/random?api_key=${process.env.GIPHY_TOKEN}&tag=welcome+to+the+club&rating=pg13`)
-      .then(response => response.json())
-      .then(data => {
-        channelWelcome.send(data.data.embed_url)
-      })
+    client.on(event.name, (...args) => event.execute(...args, client))
   }
-})
-
-client.on('message', message => {
-  if (!message.content.startsWith(config.prefix) || message.author.bot) return
-
-  const args = message.content.slice(config.prefix.length).trim().split(/ +/g)
-  const commandInput = args.shift().toLowerCase()
-  const command = client.commands.get(commandInput) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandInput))
-
-  if (!command) return
-  if (command.admin && !isAdmin(message.author.id)) return message.channel.send(config.error.access)
-
-  if (command.args && !args.length) {
-    let error = config.error.args
-    if (command.example) error += `\nE.g. \`${config.prefix}${command.name} ${command.example}\``
-    return message.channel.send(error)
-  }
-
-  try {
-    command.execute(message, args)
-  } catch (error) {
-    console.error(error)
-    message.channel.send(config.error.execute)
-  }
-})
+}
 
 client.login()

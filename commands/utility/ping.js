@@ -5,6 +5,10 @@ module.exports = {
   args: false,
   private: true,
   execute(message) {
-    message.channel.send(`${Date.now() - message.createdTimestamp}ms / ${Math.round(message.client.ws.ping)}ms`)
+    message.channel.send(
+      `${Date.now() - message.createdTimestamp}ms / ${Math.round(
+        message.client.ws.ping
+      )}ms`
+    )
   },
 }
