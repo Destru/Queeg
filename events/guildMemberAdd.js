@@ -9,6 +9,8 @@ module.exports = {
     const roleSuspect = '829420138079846471'
     const tag = encodeURI('welcome to the club')
 
+    console.log('New member added')
+
     if (Date.now() - member.user.createdAt < 1000 * 60 * 60 * 24 * 7) {
       member.roles.add(roleSuspect)
       channelWelcome.send(`${member} has been flagged for _Voight-Kampff_.`)
