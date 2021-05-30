@@ -1,20 +1,19 @@
 const Discord = require('discord.js')
 const prettyMs = require('pretty-ms')
-const { embedColor, emoji } = require('../../config')
-const { version } = require('../../helpers')
+const { embedColor } = require('../../config')
+const { randomEmoji, version } = require('../../helpers')
 
 module.exports = {
   name: 'bot-info',
   description: 'Show bot information.',
   aliases: ['queeg'],
-  args: false,
   execute(message) {
     const embed = new Discord.MessageEmbed()
       .setColor(embedColor)
       .setDescription(
         `_Definitely not <@301275924098449408> in disguse_. ` +
-          `I run the **Cyberpunk Social Club** alongside <@836661328374267997>.` +
-          `\n[GitHub repository.](https://github.com/destru/queeg)`
+          `<@836661328374267997> and I run the **Cyberpunk Social Club** ${randomEmoji()}\n` +
+          `[GitHub repository](https://github.com/destru/queeg) :link:`
       )
       .setThumbnail('https://i.imgur.com/3hPFDFb.jpg')
       .setTitle(`Queeg`)

@@ -1,5 +1,3 @@
-const config = require('../../config')
-
 module.exports = {
   name: 'say',
   description: 'Send a message.',

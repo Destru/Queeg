@@ -2,7 +2,6 @@ module.exports = {
   name: 'ping',
   description: 'Check latency.',
   aliases: ['latency'],
-  args: false,
   private: true,
   execute(message) {
     message.channel.send(

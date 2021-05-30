@@ -1,5 +1,5 @@
 const Discord = require('discord.js')
-const { alphabetEmoji } = require('../../helpers')
+const { alphabetEmoji, capitalize } = require('../../helpers')
 const { embedColor } = require('../../config')
 
 module.exports = {
@@ -9,18 +9,17 @@ module.exports = {
   example: 'who are the CSC? | communists | socialists | creatives',
   execute(message, args) {
     if (args.includes('|')) {
-      let description = ''
       let poll = args.join(' ').split('|')
       let question = poll.shift()
 
-      poll.forEach((option, i) => {
-        description = description + `${alphabetEmoji[i]} ${option.trim()}\n`
-      })
-
       const embed = new Discord.MessageEmbed()
         .setColor(embedColor)
-        .setTitle(question)
-        .setDescription(description)
+        .setDescription(question)
+        .setTitle(`Poll`)
+
+      poll.forEach((option, i) => {
+        embed.addField(alphabetEmoji[i], option.trim())
+      })
 
       message.delete()
       message.channel.send(embed).then((message) => {

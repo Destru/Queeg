@@ -8,9 +8,9 @@ module.exports = {
   example: 'should ska music be legal?',
   execute(message, args) {
     const embed = new Discord.MessageEmbed()
-      .setColor(config.embedColor)
+      .setColor(embedColor)
       .setDescription(`${args.join(' ')}`)
-      .setTitle(`Question`)
+      .setTitle(`Ask`)
 
     message.delete()
     message.channel.send(embed).then((message) => {

@@ -6,7 +6,6 @@ module.exports = {
       ' '
     ),
   hasRole: (user, role) => {
-    console.log(user.roles.cache.has(role))
     return user.roles.cache.has(role)
   },
   isAdmin: (user) => {

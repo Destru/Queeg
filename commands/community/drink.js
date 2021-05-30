@@ -1,15 +1,18 @@
 const Discord = require('discord.js')
 const fetch = require('node-fetch')
-const config = require('../../config')
+const { embedColor } = require('../../config')
 const { randomEmoji } = require('../../helpers')
 
 module.exports = {
   name: 'drink',
   description: 'Have a drink.',
   restricted: 'voter',
-  args: false,
   execute(message) {
-    const embed = new Discord.MessageEmbed().setColor(config.embedColor)
+    const embed = new Discord.MessageEmbed()
+      .setColor(embedColor)
+      .setDescription(
+        `Enjoy your drink, comrade ${message.author} ${randomEmoji()}`
+      )
 
     fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php')
       .then((response) => response.json())
@@ -20,9 +23,6 @@ module.exports = {
 
         embed
           .setTitle(drink.strDrink)
-          .setDescription(
-            `Enjoy your drink, comrade ${message.author} ${randomEmoji()}`
-          )
           .setImage(drink.strDrinkThumb)
           .addField('Category', drink.strCategory, true)
           .addField('Glass', drink.strGlass, true)
