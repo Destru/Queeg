@@ -1,5 +1,5 @@
 const config = require('../config')
-const { isAdmin } = require('../helpers')
+const { hasRole, isAdmin } = require('../helpers')
 
 module.exports = {
   name: 'message',
@@ -16,8 +16,24 @@ module.exports = {
 
     if (!command) return
 
-    if (command.restricted === 'admin' && !isAdmin(message.author.id))
-      return message.channel.send(config.error.access)
+    if (command.restricted) {
+      let authorized = false
+      let error = config.error.access
+
+      switch (command.restricted) {
+        case 'admin':
+          if (isAdmin(message.member.id)) authorized = true
+          break
+        case 'operator':
+          error = config.error.operator
+          if (hasRole(message.member, config.role.operator)) authorized = true
+          break
+        case 'voter':
+          error = config.error.voter
+          if (hasRole(message.member, config.role.voter)) authorized = true
+      }
+      if (!authorized) return message.channel.send(error)
+    }
 
     if (command.args && !args.length) {
       let error = config.error.args

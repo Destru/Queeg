@@ -8,10 +8,13 @@
     "access": "Access denied.",
     "args": "Missing arguments.",
     "execute": "Execution error.",
-    "vote": "You must `!vote` to access this command."
+    "operator": "You must be an `Operator` to access this command.",
+    "voter": "You must `!vote` to access this command."
   },
   "prefix": "!",
   "role": {
-    "voted": "827915811724460062"
+    "admin": "832089472337182770",
+    "operator": "412545631228395540",
+    "voter": "827915811724460062"
   }
 }

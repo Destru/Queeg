@@ -1,6 +1,6 @@
 const Discord = require('discord.js')
 const prettyMs = require('pretty-ms')
-const { embedColor } = require('../../config')
+const { embedColor, emoji } = require('../../config')
 const { version } = require('../../helpers')
 
 module.exports = {
@@ -12,7 +12,8 @@ module.exports = {
     const embed = new Discord.MessageEmbed()
       .setColor(embedColor)
       .setDescription(
-        `A backup computer that replaces Holly for certain tasks.` +
+        `_Definitely not <@301275924098449408> in disguse_. ` +
+          `I run the **Cyberpunk Social Club** alongside <@836661328374267997>.` +
           `\n[GitHub repository.](https://github.com/destru/queeg)`
       )
       .setThumbnail('https://i.imgur.com/3hPFDFb.jpg')

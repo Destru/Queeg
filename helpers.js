@@ -5,6 +5,13 @@ module.exports = {
     '🇦 🇧 🇨 🇩 🇪 🇫 🇬 🇭 🇮 🇯 🇰 🇱 🇲 🇳 🇴 🇵 🇶 🇷 🇸 🇹 🇺 🇻 🇼 🇽 🇾 🇿'.split(
       ' '
     ),
+  hasRole: (user, role) => {
+    console.log(user.roles.cache.has(role))
+    return user.roles.cache.has(role)
+  },
+  isAdmin: (user) => {
+    return user === process.env.ADMIN
+  },
   randomEntries: (a, n, api = false) => {
     let result = new Array(n)
     ;(len = a.length), (taken = new Array(len))
@@ -30,9 +37,6 @@ module.exports = {
       '<:csc:403256716583632906>',
     ]
     return emoji[Math.floor(Math.random() * emoji.length)]
-  },
-  isAdmin: (user) => {
-    return user === process.env.ADMIN
   },
   version: process.env.npm_package_version || '(Development)',
 }
