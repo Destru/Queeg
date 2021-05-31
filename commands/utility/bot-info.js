@@ -11,9 +11,8 @@ module.exports = {
     const embed = new Discord.MessageEmbed()
       .setColor(embedColor)
       .setDescription(
-        `_Definitely not <@301275924098449408> in disguse_. ` +
-          `<@836661328374267997> and I run the **Cyberpunk Social Club** ${randomEmoji()}\n` +
-          `[GitHub repository](https://github.com/destru/queeg) :link:`
+        `<@836661328374267997> and I run the **CSC** ${randomEmoji()}` +
+          `\n[GitHub Repo](https://github.com/destru/queeg) :link:`
       )
       .setThumbnail('https://i.imgur.com/3hPFDFb.jpg')
       .setTitle(`Queeg`)
