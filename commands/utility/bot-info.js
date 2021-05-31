@@ -11,7 +11,7 @@ module.exports = {
     const embed = new Discord.MessageEmbed()
       .setColor(embedColor)
       .setDescription(
-        `<@836661328374267997> and I run the **CSC** ${randomEmoji()}` +
+        `<@836661328374267997> and I run the **Cyberpunk Social Club** <:cscbob:846528128524091422>` +
           `\n[GitHub Repo](https://github.com/destru/queeg) :link:`
       )
       .setThumbnail('https://i.imgur.com/3hPFDFb.jpg')
