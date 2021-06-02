@@ -1,7 +1,7 @@
 const Discord = require('discord.js')
 const prettyMs = require('pretty-ms')
 const { embedColor } = require('../../config')
-const { randomEmoji, version } = require('../../helpers')
+const { version } = require('../../helpers')
 
 module.exports = {
   name: 'bot-info',

@@ -6,16 +6,38 @@ module.exports = {
   description: 'List all commands, or details on a specific command.',
   example: 'ping',
   aliases: ['command'],
+  private: true,
   execute(message, args) {
     const { commands } = message.client
 
     if (!args.length) {
-      message.channel.send(
-        commands
-          .filter((command) => !command.private)
-          .map((command) => `\`${prefix}${command.name}\``)
-          .join(', ')
+      let community = '',
+        voters = ''
+      const embed = new Discord.MessageEmbed()
+        .setColor(embedColor)
+        .setDescription(
+          `Commands executed by <@301275924098449408> are _wholly_ unreliable.`
+        )
+        .setTitle('Commands')
+
+      commands
+        .filter((command) => !command.private)
+        .sort((a, b) => a.name.localeCompare(b.name))
+        .map((command) => {
+          console.log(command.name)
+          if (command.restricted === 'voter')
+            voters += `\`${prefix}${command.name}\`\n`
+          else community += `\`${prefix}${command.name}\`\n`
+        })
+
+      embed.addField(`Community <:cscalt:837251418247004205>`, community, true)
+      embed.addField(
+        `Holly <:holly:410612684103352321>`,
+        '`!haikus`\n`!resurrect`\n',
+        true
       )
+      embed.addField(`Voters <:upvote:462126280704262144>`, voters, true)
+      message.channel.send(embed)
     } else {
       const name = args[0].toLowerCase()
       const command =
