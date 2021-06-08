@@ -15,9 +15,6 @@ module.exports = {
         voters = ''
       const embed = new Discord.MessageEmbed()
         .setColor(embedColor)
-        .setDescription(
-          `Commands executed by <@301275924098449408> are _wholly_ unreliable.`
-        )
         .setTitle('Commands')
 
       commands
@@ -31,11 +28,6 @@ module.exports = {
         })
 
       embed.addField(`Community <:cscalt:837251418247004205>`, community, true)
-      embed.addField(
-        `Holly <:holly:410612684103352321>`,
-        '`!haikus`\n`!resurrect`\n',
-        true
-      )
       embed.addField(`Voters <:upvote:462126280704262144>`, voters, true)
       message.channel.send(embed)
     } else {
