@@ -1,4 +1,5 @@
 const { role } = require('../../config')
+const prettyMs = require('pretty-ms')
 
 const data = require('flat-db')
 data.configure({ dir: './data' })
@@ -17,7 +18,7 @@ module.exports = {
     let timeRemaining
 
     if (hasResurrected) {
-      const expires = matches[0]._ts_ + 14 * 24 * 60 * 60 * 1000
+      const expires = matches[0]._ts_ + 7 * 24 * 60 * 60 * 1000
       if (Date.now() < expires) timeRemaining = expires - Date.now()
     }
 

@@ -18,35 +18,35 @@ module.exports = {
 
     if (command.restricted) {
       let authorized = false
-      let error = error.access
+      let errorMessage = error.access
 
       switch (command.restricted) {
         case 'admin':
           if (isAdmin(message.member.id)) authorized = true
           break
         case 'operator':
-          error = error.operator
+          errorMessage = error.operator
           if (hasRole(message.member, role.operator)) authorized = true
           break
         case 'voter':
-          error = error.voter
+          errorMessage = error.voter
           if (hasRole(message.member, role.voter)) authorized = true
       }
-      if (!authorized) return message.channel.send(error)
+      if (!authorized) return message.channel.send(errorMessage)
     }
 
     if (command.args && !args.length) {
-      let error = error.args
+      let errorMessage = error.args
 
       if (command.example)
-        error = `See \`${prefix}command ${command.name}\` for more information.`
-      return message.channel.send(error)
+        errorMessage = `See \`${prefix}command ${command.name}\` for more information.`
+      return message.channel.send(errorMessage)
     }
 
     try {
       command.execute(message, args)
-    } catch (error) {
-      console.error(error)
+    } catch (e) {
+      console.error(e)
       message.channel.send(error.execute)
     }
   },
