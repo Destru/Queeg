@@ -1,4 +1,4 @@
-const { ghost } = require('../../config')
+const { role } = require('../../config')
 
 const data = require('flat-db')
 data.configure({ dir: './data' })
@@ -9,7 +9,7 @@ module.exports = {
   description: 'Remove all death penalties.',
   restricted: 'voter',
   execute(message) {
-    if (!message.member.roles.cache.has(ghost))
+    if (!message.member.roles.cache.has(role.ghost))
       return message.channel.send(`You're not dead.`)
 
     const matches = Resurrection.find().matches('uid', message.author.id).run()
@@ -24,7 +24,7 @@ module.exports = {
     if (!timeRemaining) {
       if (hasResurrected) Resurrection.remove(matches[0]._id_)
       Resurrection.add({ uid: message.author.id })
-      message.member.roles.remove(ghost)
+      message.member.roles.remove(role.ghost)
       message.channel.send(`You have been resurrected.`)
     } else {
       message.channel.send(
