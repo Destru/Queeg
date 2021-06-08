@@ -5,7 +5,6 @@
   "embedColor": "#00ffff",
   "error": {
     "access": "Access denied.",
-    "args": "Missing arguments.",
     "execute": "Execution error.",
     "operator": "You must be an `Operator` to access this command.",
     "voter": "You must `!vote` to access this command."

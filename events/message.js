@@ -37,8 +37,9 @@ module.exports = {
 
     if (command.args && !args.length) {
       let error = config.error.args
+
       if (command.example)
-        error += `\nE.g. \`${config.prefix}${command.name} ${command.example}\``
+        error = `See \`${config.prefix}command ${command.name}\` for more information.`
       return message.channel.send(error)
     }
 
