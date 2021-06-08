@@ -1,12 +1,12 @@
-const config = require('../config')
+const { error, prefix, role } = require('../config')
 const { hasRole, isAdmin } = require('../helpers')
 
 module.exports = {
   name: 'message',
   execute(message, client) {
-    if (!message.content.startsWith(config.prefix) || message.author.bot) return
+    if (!message.content.startsWith(prefix) || message.author.bot) return
 
-    const args = message.content.slice(config.prefix.length).trim().split(/ +/g)
+    const args = message.content.slice(prefix.length).trim().split(/ +/g)
     const commandInput = args.shift().toLowerCase()
     const command =
       client.commands.get(commandInput) ||
@@ -18,28 +18,28 @@ module.exports = {
 
     if (command.restricted) {
       let authorized = false
-      let error = config.error.access
+      let error = error.access
 
       switch (command.restricted) {
         case 'admin':
           if (isAdmin(message.member.id)) authorized = true
           break
         case 'operator':
-          error = config.error.operator
-          if (hasRole(message.member, config.role.operator)) authorized = true
+          error = error.operator
+          if (hasRole(message.member, role.operator)) authorized = true
           break
         case 'voter':
-          error = config.error.voter
-          if (hasRole(message.member, config.role.voter)) authorized = true
+          error = error.voter
+          if (hasRole(message.member, role.voter)) authorized = true
       }
       if (!authorized) return message.channel.send(error)
     }
 
     if (command.args && !args.length) {
-      let error = config.error.args
+      let error = error.args
 
       if (command.example)
-        error = `See \`${config.prefix}command ${command.name}\` for more information.`
+        error = `See \`${prefix}command ${command.name}\` for more information.`
       return message.channel.send(error)
     }
 
@@ -47,7 +47,7 @@ module.exports = {
       command.execute(message, args)
     } catch (error) {
       console.error(error)
-      message.channel.send(config.error.execute)
+      message.channel.send(error.execute)
     }
   },
 }
