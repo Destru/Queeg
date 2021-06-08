@@ -13,9 +13,7 @@ module.exports = {
     if (!args.length) {
       let community = '',
         voters = ''
-      const embed = new Discord.MessageEmbed()
-        .setColor(embedColor)
-        .setTitle('Commands')
+      const embed = new Discord.MessageEmbed().setColor(embedColor)
 
       commands
         .filter((command) => !command.private)
@@ -29,6 +27,7 @@ module.exports = {
 
       embed.addField(`Community <:cscalt:837251418247004205>`, community, true)
       embed.addField(`Voters <:upvote:462126280704262144>`, voters, true)
+
       message.channel.send(embed)
     } else {
       const name = args[0].toLowerCase()
