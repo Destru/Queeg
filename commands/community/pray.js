@@ -1,6 +1,6 @@
 module.exports = {
   name: 'pray',
-  description: 'Pray for forgiveness.',
+  description: 'Pray for forgiveness. (Leave horny jail.)',
   restricted: 'voter',
   execute(message) {
     message.member.roles.remove('841071539645579325')
