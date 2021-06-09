@@ -11,6 +11,7 @@ module.exports = {
     const embed = new Discord.MessageEmbed()
       .setColor(embedColor)
       .setDescription(`${args.join(' ')}`)
+      .setTitle('Question')
 
     message.delete()
     message.channel.send(embed).then((message) => {
