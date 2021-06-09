@@ -13,7 +13,11 @@ module.exports = {
     if (!args.length) {
       let community = '',
         voters = ''
-      const embed = new Discord.MessageEmbed().setColor(embedColor)
+      const embed = new Discord.MessageEmbed()
+        .setColor(embedColor)
+        .setDescription(
+          `Pass a command name as an argument for more information (e.g. \`${prefix}command ask\`).`
+        )
 
       commands
         .filter((command) => !command.private)

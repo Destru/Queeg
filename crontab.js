@@ -8,9 +8,10 @@ const { randomEntries } = require('./helpers')
 
 const deathsChannel = '832394205422026813'
 const eventsChannel = '160320676580818951'
-const now = new Date()
 
 const dailyDeaths = (client, channel) => {
+  const now = new Date()
+
   fetch(
     `https://byabbe.se/on-this-day/${
       now.getMonth() + 1
@@ -39,6 +40,8 @@ const dailyDeaths = (client, channel) => {
 }
 
 const dailyEvents = (client, channel) => {
+  const now = new Date()
+
   fetch(
     `https://byabbe.se/on-this-day/${
       now.getMonth() + 1
