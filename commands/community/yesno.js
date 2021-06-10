@@ -2,9 +2,9 @@ const Discord = require('discord.js')
 const { embedColor } = require('../../config')
 
 module.exports = {
-  name: 'ask',
+  name: 'yesno',
   description: 'Ask a yes/no question.',
-  alias: 'yesno',
+  alias: 'ask',
   args: true,
   example: 'TNG > DS9',
   execute(message, args) {
