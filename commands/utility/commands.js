@@ -16,8 +16,9 @@ module.exports = {
       const embed = new Discord.MessageEmbed()
         .setColor(embedColor)
         .setDescription(
-          `Pass a command name as an argument for more information (e.g. \`${prefix}command ask\`).`
+          `You can pass a command name as an argument for more information (e.g. \`${prefix}command ask\`).`
         )
+        .setTitle(`Commands`)
 
       commands
         .filter((command) => !command.private)
