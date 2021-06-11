@@ -2,14 +2,14 @@
   "name": "queeg",
   "version": "2.2.15",
   "description": "Administrative chatbot for the CSC.",
-  "main": "index.js",
+  "main": "queeg.js",
   "engines": {
     "node": "12.x",
     "npm": "*"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node queeg.js"
   },
   "repository": {
     "type": "git",
