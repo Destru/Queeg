@@ -2,10 +2,10 @@ const crontab = require('../../crontab')
 
 module.exports = {
   name: 'crontab',
-  description: 'Run cron.',
+  description: 'Run crontab tasks.',
   admin: true,
   private: true,
   execute(message) {
-    crontab.dev(message.client)
+    crontab.run(message.client)
   },
 }

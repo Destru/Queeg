@@ -3,12 +3,11 @@ const cron = require('node-cron')
 const fetch = require('node-fetch')
 const ordinal = require('ordinal/indicator')
 
-const config = require('./config')
+const { channel, embedColor } = require('./config')
 const { randomEntries } = require('./helpers')
 
-const deathsChannel = '832394205422026813'
-const eventsChannel = '160320676580818951'
-const testChannel = '845382463685132288'
+const channelDeaths = '832394205422026813'
+const channelEvents = '160320676580818951'
 
 const dailyDeaths = (client, channel) => {
   const now = new Date()
@@ -20,13 +19,13 @@ const dailyDeaths = (client, channel) => {
   )
     .then((response) => response.json())
     .then((data) => {
-      const deaths = randomEntries(data.deaths, 24, 'byabbe') // Hail, Satan!
+      const deaths = randomEntries(data.deaths, 24, 'byabbe')
       const embed = new Discord.MessageEmbed()
-        .setColor(config.embedColor)
+        .setColor(embedColor)
         .setTitle(`Deaths on ${data.date}${ordinal(now.getDate())} :headstone:`)
 
       deaths.forEach((death) => {
-        const description = death.description.replace('[[', '')
+        const description = death.description.replace('[[', '') // bad data :(
         const link = death.wikipedia[0].wikipedia
         let year = death.year
         if (year.match(/-/)) year = `${year.replace('-', '')} BC`
@@ -49,7 +48,7 @@ const dailyEvents = (client, channel) => {
     .then((data) => {
       const events = randomEntries(data.events, 10, 'byabbe')
       const embed = new Discord.MessageEmbed()
-        .setColor(config.embedColor)
+        .setColor(embedColor)
         .setTitle(`Events on ${data.date}${ordinal(now.getDate())} :newspaper:`)
 
       events.forEach((event) => {
@@ -72,22 +71,22 @@ const dailyEvents = (client, channel) => {
 }
 
 module.exports = {
-  dev: (client) => {
-    dailyDeaths(client, testChannel)
-    dailyEvents(client, testChannel)
-  },
   load: (client) => {
     cron.schedule(
       '0 8 * * *',
       () => {
         console.log('Running 8am tasks.')
 
-        dailyDeaths(client, deathsChannel)
-        dailyEvents(client, eventsChannel)
+        dailyDeaths(client, channelDeaths)
+        dailyEvents(client, channelEvents)
       },
       {
         timezone: 'America/Los_Angeles',
       }
     )
+  },
+  run: (client) => {
+    dailyDeaths(client, channel.test)
+    dailyEvents(client, channel.test)
   },
 }
