@@ -1,9 +1,9 @@
 const { role } = require('../../config')
 const prettyMs = require('pretty-ms')
 
-const data = require('flat-db')
-data.configure({ dir: './data' })
-const Resurrection = new data.Collection('resurrections', { uid: '' })
+const db = require('flat-db')
+db.configure({ dir: './data' })
+const Resurrection = new db.Collection('resurrections', { uid: '' })
 
 module.exports = {
   name: 'resurrect',
