@@ -8,6 +8,7 @@ const { randomEntries } = require('./helpers')
 
 const deathsChannel = '832394205422026813'
 const eventsChannel = '160320676580818951'
+const testChannel = '845382463685132288'
 
 const dailyDeaths = (client, channel) => {
   const now = new Date()
@@ -19,20 +20,17 @@ const dailyDeaths = (client, channel) => {
   )
     .then((response) => response.json())
     .then((data) => {
-      const deaths = randomEntries(data.deaths, 18, 'byabbe') // Hail, Satan!
+      const deaths = randomEntries(data.deaths, 24, 'byabbe') // Hail, Satan!
       const embed = new Discord.MessageEmbed()
         .setColor(config.embedColor)
         .setTitle(`Deaths on ${data.date}${ordinal(now.getDate())} :headstone:`)
-        .setImage('https://media.giphy.com/media/h5NLPVn3rg0Rq/giphy.gif')
 
       deaths.forEach((death) => {
+        const description = death.description.replace('[[', '')
+        const link = death.wikipedia[0].wikipedia
         let year = death.year
         if (year.match(/-/)) year = `${year.replace('-', '')} BC`
-        embed.addField(
-          year,
-          `[${death.description}](${death.wikipedia[0].wikipedia})`,
-          true
-        )
+        embed.addField(year, `[${description}](${link})`, true)
       })
 
       client.channels.cache.get(channel).send(embed)
@@ -49,13 +47,15 @@ const dailyEvents = (client, channel) => {
   )
     .then((response) => response.json())
     .then((data) => {
-      const events = randomEntries(data.events, 5, 'byabbe')
+      const events = randomEntries(data.events, 10, 'byabbe')
       const embed = new Discord.MessageEmbed()
         .setColor(config.embedColor)
         .setTitle(`Events on ${data.date}${ordinal(now.getDate())} :newspaper:`)
 
       events.forEach((event) => {
         let description = event.description
+        let year = event.year
+        if (year.match(/-/)) year = `${year.replace('-', '')} BC`
 
         event.wikipedia.forEach((wiki, i) => {
           let link = `[${wiki.title}](${wiki.wikipedia})`
@@ -72,6 +72,10 @@ const dailyEvents = (client, channel) => {
 }
 
 module.exports = {
+  dev: (client) => {
+    dailyDeaths(client, testChannel)
+    dailyEvents(client, testChannel)
+  },
   load: (client) => {
     cron.schedule(
       '0 8 * * *',
