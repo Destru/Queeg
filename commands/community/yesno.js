@@ -4,7 +4,7 @@ const { embedColor } = require('../../config')
 module.exports = {
   name: 'yesno',
   description: 'Ask a yes/no question.',
-  aliases: 'ask',
+  aliases: ['ask'],
   args: true,
   example: 'TNG > DS9',
   execute(message, args) {
