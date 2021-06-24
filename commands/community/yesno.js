@@ -4,7 +4,7 @@ const { embedColor } = require('../../config')
 module.exports = {
   name: 'yesno',
   description: 'Ask a yes/no question.',
-  alias: 'ask',
+  aliases: 'ask',
   args: true,
   example: 'TNG > DS9',
   execute(message, args) {
@@ -13,7 +13,7 @@ module.exports = {
       .setDescription(`${args.join(' ')}`)
       .setTitle('Yes/No')
 
-    message.delete()
+    if (message) message.delete()
     message.channel.send(embed).then((message) => {
       message.react('👍')
       message.react('👎')

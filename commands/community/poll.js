@@ -1,30 +1,29 @@
 const Discord = require('discord.js')
-const { alphabetEmoji, capitalize } = require('../../helpers')
+const { numberEmoji, capitalize } = require('../../helpers')
 const { embedColor } = require('../../config')
 
 module.exports = {
   name: 'poll',
   description: 'Create a poll.',
   args: true,
-  example: 'who are the CSC? | communists | socialists | creatives',
+  example: 'CSC? | Communists | Socialists | Creatives',
   execute(message, args) {
-    if (args.includes('|')) {
-      let poll = args.join(' ').split('|')
-      let question = poll.shift()
+    if (message.content.includes('|')) {
+      let poll = message.content.split('|')
+      let question = poll.shift().replace('!poll ', '')
 
       const embed = new Discord.MessageEmbed()
         .setColor(embedColor)
         .setDescription(question)
-        .setTitle(`Poll`)
+        .setTitle('Poll')
 
       poll.forEach((option, i) => {
-        embed.addField(alphabetEmoji[i], option.trim())
+        embed.addField(`${i + 1}.`, option.trim())
       })
 
-      message.delete()
       message.channel.send(embed).then((message) => {
         for (let i = 0; i < poll.length; i++) {
-          message.react(alphabetEmoji[i])
+          message.react(numberEmoji[i + 1])
         }
       })
     } else {

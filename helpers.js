@@ -9,6 +9,7 @@ module.exports = {
   isAdmin: (user) => {
     return user === process.env.ADMIN
   },
+  numberEmoji: '0⃣ 1⃣ 2⃣ 3⃣ 4⃣ 5⃣ 6⃣ 7⃣ 8⃣ 9⃣'.split(' '),
   randomEntries: (a, n, api = false) => {
     let result = new Array(n)
     ;(len = a.length), (taken = new Array(len))

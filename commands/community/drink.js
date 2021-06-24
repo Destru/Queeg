@@ -8,6 +8,8 @@ module.exports = {
   description: 'Have a drink.',
   restricted: 'voter',
   execute(message) {
+    if (message.content !== '!drink') return
+
     const embed = new Discord.MessageEmbed()
       .setColor(embedColor)
       .setDescription(
