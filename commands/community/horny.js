@@ -6,6 +6,6 @@ module.exports = {
   restricted: 'voter',
   execute(message) {
     message.member.roles.add(role.sinner)
-    message.channel.send(`Bonk!`)
+    message.channel.send(`*Bonk!*`)
   },
 }

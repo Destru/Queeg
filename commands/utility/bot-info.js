@@ -7,6 +7,7 @@ module.exports = {
   name: 'bot-info',
   description: 'Show bot information.',
   aliases: ['queeg'],
+  private: true,
   execute(message) {
     const embed = new Discord.MessageEmbed()
       .setColor(embedColor)

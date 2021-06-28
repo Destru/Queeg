@@ -1,4 +1,5 @@
-const { role } = require('../../config')
+const Discord = require('discord.js')
+const { embedColor, role } = require('../../config')
 const prettyMs = require('pretty-ms')
 
 const db = require('flat-db')
@@ -13,6 +14,9 @@ module.exports = {
     if (!message.member.roles.cache.has(role.ghost))
       return message.channel.send(`You're not dead.`)
 
+    const embed = new Discord.MessageEmbed()
+      .setColor(embedColor)
+      .setTitle(`Ressurection`)
     const matches = Resurrection.find().matches('uid', message.author.id).run()
     const hasResurrected = matches.length > 0
     let timeRemaining
@@ -23,14 +27,18 @@ module.exports = {
     }
 
     if (!timeRemaining) {
+      message.member.roles.remove(role.ghost)
       if (hasResurrected) Resurrection.remove(matches[0]._id_)
       Resurrection.add({ uid: message.author.id })
-      message.member.roles.remove(role.ghost)
-      message.channel.send(`You have been resurrected.`)
+      embed.setDescription(
+        `You have been succesfully resurrected.` +
+          `Remember to read the *pinned messages* in channels for more information.`
+      )
     } else {
-      message.channel.send(
+      embed.setDescription(
         `You have to wait \`${prettyMs(timeRemaining)}\` to resurrect.`
       )
     }
+    message.channel.send(embed)
   },
 }
