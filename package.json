@@ -30,6 +30,7 @@
     "discord.js": "^12.5.3",
     "dotenv": "^9.0.2",
     "flat-db": "^4.0.0",
+    "justwatch": "^1.0.3",
     "node-cron": "^3.0.0",
     "node-fetch": "^2.6.1",
     "ordinal": "^1.0.3",
