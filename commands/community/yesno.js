@@ -10,10 +10,9 @@ module.exports = {
   execute(message, args) {
     const embed = new Discord.MessageEmbed()
       .setColor(embedColor)
-      .setDescription(`${args.join(' ')}`)
+      .setDescription(args.join(' '))
       .setTitle('Yes/No')
 
-    if (message) message.delete()
     message.channel.send(embed).then((message) => {
       message.react('👍')
       message.react('👎')

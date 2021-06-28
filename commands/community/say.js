@@ -13,7 +13,7 @@ module.exports = {
       )
     }
 
-    message.delete()
+    if (message) message.delete()
     messageChannel.send(args.join(' '))
   },
 }

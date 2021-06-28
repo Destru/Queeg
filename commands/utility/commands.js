@@ -24,7 +24,6 @@ module.exports = {
         .filter((command) => !command.private)
         .sort((a, b) => a.name.localeCompare(b.name))
         .map((command) => {
-          console.log(command.name)
           if (command.restricted === 'voter')
             voters += `\`${prefix}${command.name}\`\n`
           else community += `\`${prefix}${command.name}\`\n`
