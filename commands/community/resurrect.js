@@ -8,7 +8,7 @@ const Resurrection = new db.Collection('resurrections', { uid: '' })
 
 module.exports = {
   name: 'resurrect',
-  description: 'Remove all death penalties.',
+  description: 'Removes all death penalties.',
   restricted: 'voter',
   execute(message) {
     if (!message.member.roles.cache.has(role.ghost))
@@ -31,7 +31,7 @@ module.exports = {
       if (hasResurrected) Resurrection.remove(matches[0]._id_)
       Resurrection.add({ uid: message.author.id })
       embed.setDescription(
-        `You have been succesfully resurrected.` +
+        `You have been succesfully resurrected. ` +
           `Remember to read the *pinned messages* in channels for more information.`
       )
     } else {
