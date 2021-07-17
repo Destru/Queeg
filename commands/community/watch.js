@@ -39,9 +39,6 @@ module.exports = {
     for (const match of matches.items) {
       const byProvider = (obj) => {
         if (providers.hasOwnProperty(obj.provider_id.toString())) return true
-        // else {
-        //   console.log(obj)
-        // }
         return false
       }
 
