@@ -15,6 +15,7 @@ module.exports = {
   },
   numberEmoji: '0⃣ 1⃣ 2⃣ 3⃣ 4⃣ 5⃣ 6⃣ 7⃣ 8⃣ 9⃣'.split(' '),
   randomEntries: (a, n, api = false) => {
+    let addEntry = true
     let result = new Array(n)
     ;(len = a.length), (taken = new Array(len))
 
@@ -23,12 +24,20 @@ module.exports = {
     while (n--) {
       let x = Math.floor(Math.random() * len)
 
-      if (api === 'byabbe')
-        if (!isFinite(a[x].year)) a[x].year = `-${a[x].year.replace(/ BC/, '')}`
-      result[n] = a[x in taken ? taken[x] : x]
-      taken[x] = --len in taken ? taken[len] : len
-    }
+      if (api === 'byabbe') {
+        if (!isFinite(a[x].year)) {
+          if (a[x].year.includes('AD')) a[x].year = a[x].year.replace(/AD /, '')
+          else a[x].year = `-${a[x].year.replace(/ BC/, '')}`
+        }
+        if (a[x].description === null) addEntry = false
+        else addEntry = true
+      }
 
+      if (addEntry) {
+        result[n] = a[x in taken ? taken[x] : x]
+        taken[x] = --len in taken ? taken[len] : len
+      }
+    }
     if (api === 'byabbe') result.sort((a, b) => a.year - b.year)
     return result
   },
