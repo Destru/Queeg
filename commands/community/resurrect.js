@@ -22,7 +22,7 @@ module.exports = {
     let timeRemaining
 
     if (hasResurrected) {
-      const expires = matches[0]._ts_ + 7 * 24 * 60 * 60 * 1000
+      const expires = matches[0]._ts_ + 3 * 24 * 60 * 60 * 1000 // Just like Jesus
       if (Date.now() < expires) timeRemaining = expires - Date.now()
     }
 
