@@ -22,7 +22,7 @@ module.exports = {
     let timeRemaining
 
     if (hasResurrected) {
-      const expires = matches[0]._ts_ + 3 * 24 * 60 * 60 * 1000 // Just like Jesus
+      const expires = matches[0]._ts_ + 3 * 24 * 60 * 60 * 1000
       if (Date.now() < expires) timeRemaining = expires - Date.now()
     }
 
@@ -30,10 +30,7 @@ module.exports = {
       message.member.roles.remove(role.ghost)
       if (hasResurrected) Resurrection.remove(matches[0]._id_)
       Resurrection.add({ uid: message.author.id })
-      embed.setDescription(
-        `You have been succesfully resurrected. ` +
-          `Remember to read the *pinned messages* in channels for more information.`
-      )
+      embed.setDescription(`You have been resurrected 🙏`)
     } else {
       embed.setDescription(
         `You have to wait \`${prettyMs(timeRemaining)}\` to resurrect.`
