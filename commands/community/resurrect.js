@@ -28,7 +28,10 @@ module.exports = {
 
     if (!timeRemaining) {
       message.member.roles.remove(role.ghost)
-      if (hasResurrected) Resurrection.remove(matches[0]._id_)
+      if (hasResurrected)
+        matches.forEach((match) => {
+          Resurrection.remove(match._id_)
+        })
       Resurrection.add({ uid: message.author.id })
       embed.setDescription(`You have been resurrected 🙏`)
     } else {
