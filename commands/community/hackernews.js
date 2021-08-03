@@ -22,14 +22,7 @@ module.exports = {
           fetch(`${api}item/${data[i]}.json`)
             .then((response) => response.json())
             .then((data) => {
-              const maxTitleLength = 74
-              let title
-
-              if (data.title.length > maxTitleLength)
-                title = data.title.substring(0, maxTitleLength - 3) + '...'
-              else title = data.title
-
-              links.push(`[${title}](${data.url}) \`${data.score}\``)
+              links.push(`[${data.title}](${data.url})`)
             })
         }
 

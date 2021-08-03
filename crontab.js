@@ -8,6 +8,7 @@ const { randomEntries } = require('./helpers')
 
 const channelDeaths = '832394205422026813'
 const channelEvents = '160320676580818951'
+const channelTerminal = '405503298951446528'
 
 const dailyDeaths = (client, channel) => {
   const now = new Date()
@@ -75,7 +76,8 @@ module.exports = {
     cron.schedule(
       '0 8 * * *',
       () => {
-        console.log('Running 8am tasks.')
+        console.log('Running daily tasks.')
+        client.channels.cache.get(channel.terminal).send(`Running daily tasks.`)
 
         dailyDeaths(client, channelDeaths)
         dailyEvents(client, channelEvents)
