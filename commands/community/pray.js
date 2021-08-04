@@ -2,10 +2,14 @@ const { role } = require('../../config')
 
 module.exports = {
   name: 'pray',
-  description: 'Pray for forgiveness. (Leave horny jail.)',
+  description: 'Pray for forgiveness, and leave horny jail.',
   restricted: 'voter',
   execute(message) {
-    message.member.roles.remove(role.sinner)
-    message.channel.send(`Your prayers have been heard.`)
+    if (message.member.roles.cache.has(role.sinner)) {
+      message.member.roles.remove(role.sinner)
+      message.channel.send(`You are filled with the source of all things.`)
+    } else {
+      message.channel.send(`You feel nothing.`)
+    }
   },
 }
