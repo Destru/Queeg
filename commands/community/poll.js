@@ -1,6 +1,6 @@
 const Discord = require('discord.js')
 const { embedColor, prefix } = require('../../config')
-const { capitalize, numberEmoji } = require('../../helpers')
+const { capitalize, alphabetEmoji } = require('../../helpers')
 
 module.exports = {
   name: 'poll',
@@ -18,12 +18,16 @@ module.exports = {
         .setTitle('Poll')
 
       poll.forEach((option, i) => {
-        embed.addField(`${i + 1}.`, capitalize(option.trim()))
+        embed.addField(
+          `Option ${alphabetEmoji[i]}`,
+          capitalize(option.trim()),
+          true
+        )
       })
 
       message.channel.send(embed).then((message) => {
         for (let i = 0; i < poll.length; i++) {
-          message.react(numberEmoji[i + 1])
+          message.react(alphabetEmoji[i])
         }
       })
     } else {
