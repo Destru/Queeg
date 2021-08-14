@@ -1,6 +1,6 @@
 {
   "name": "queeg",
-  "version": "2.5.4",
+  "version": "2.6.0",
   "description": "Administrative chatbot for the CSC.",
   "main": "queeg.js",
   "engines": {
