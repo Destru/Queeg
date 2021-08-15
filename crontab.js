@@ -8,7 +8,6 @@ const { randomEntries } = require('./helpers')
 
 const channelDeaths = '832394205422026813'
 const channelEvents = '160320676580818951'
-const channelTerminal = '405503298951446528'
 
 const dailyDeaths = (client, channel) => {
   const now = new Date()
@@ -81,6 +80,20 @@ module.exports = {
 
         dailyDeaths(client, channelDeaths)
         dailyEvents(client, channelEvents)
+
+        setTimeout(() => {
+          const api = 'https://api.giphy.com/v1/gifs/'
+          const key = process.env.GIPHY_TOKEN
+          const tag = encodeURI(`good morning`)
+
+          fetch(`${api}random?api_key=${key}&tag=${tag}`)
+            .then((response) => response.json())
+            .then((data) => {
+              client.channels.cache
+                .get(channel.terminal)
+                .send(data.data.embed_url)
+            })
+        }, 5 * 60 * 1000)
       },
       {
         timezone: 'America/Los_Angeles',
