@@ -4,46 +4,45 @@ const { embedColor } = require('../../config')
 
 module.exports = {
   name: 'weather',
-  description: `See what the weather is like there.`,
+  description: `Get the weather in any city.`,
+  aliases: ['city'],
   args: true,
-  example: 'oslo norway',
+  example: 'oslo',
   execute(message, args) {
+    const api = 'https://community-open-weather-map.p.rapidapi.com/'
+    const city = args.join(' ')
     const embed = new Discord.MessageEmbed().setColor(embedColor)
-    let city = args.join(' ')
 
-    fetch(
-      `https://community-open-weather-map.p.rapidapi.com/weather?q=${city}&units=metric`,
-      {
-        method: 'GET',
-        headers: {
-          'x-rapidapi-key':
-            '2c3cbcc959msh750496ab26f3b33p148e3ejsn9e92d3adb783',
-          'x-rapidapi-host': 'community-open-weather-map.p.rapidapi.com',
-        },
-      }
-    )
+    let emoji = ''
+
+    fetch(`${api}weather?q=${city}&units=metric`, {
+      method: 'GET',
+      headers: {
+        'x-rapidapi-key': '2c3cbcc959msh750496ab26f3b33p148e3ejsn9e92d3adb783',
+        'x-rapidapi-host': 'community-open-weather-map.p.rapidapi.com',
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
         if (data.weather && data.weather.length > 0) {
-          const description = data.weather[0].description
+          const description = `(${data.weather[0].description})`
           const weather = data.weather[0].main
 
           embed
-            .setDescription(`${weather} (${description}).`)
+            .setDescription(`${weather} ${description} ${emoji}`)
             .setTitle(data.name)
             .addFields(
               {
-                name: `Temperature :thermometer: `,
+                name: `Temperature`,
                 value:
                   `Current \`${data.main.temp}°\`` +
-                  `\nMin/Max \`${data.main.temp_min}°/${data.main.temp_max}°\`` +
                   `\nHumidity \`${data.main.humidity}\`` +
                   `\nPressure \`${data.main.pressure}\`` +
                   ``,
                 inline: true,
               },
               {
-                name: `Wind :cloud_tornado: `,
+                name: `Wind`,
                 value:
                   `Speed \`${data.wind.speed || 0}\`` +
                   `\nDeg \`${data.wind.deg || 0}\`` +

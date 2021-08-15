@@ -3,9 +3,9 @@ const jw = require('justwatch')
 const { embedColor } = require('../../config')
 
 module.exports = {
-  name: 'watchnow',
+  name: 'watch',
   description: 'Find out where movies are streaming.',
-  aliases: ['watch'],
+  aliases: ['watchnow'],
   args: true,
   example: 'Blade Runner',
   async execute(message, args) {

@@ -22,7 +22,7 @@ const dailyDeaths = (client, channel) => {
       const deaths = randomEntries(data.deaths, 24, 'byabbe')
       const embed = new Discord.MessageEmbed()
         .setColor(embedColor)
-        .setTitle(`Deaths on ${data.date}${ordinal(now.getDate())} :headstone:`)
+        .setTitle(`Deaths ${data.date}${ordinal(now.getDate())}`)
 
       deaths.forEach((death) => {
         const description = death.description.replace('[[', '') // bad data :(
@@ -49,7 +49,7 @@ const dailyEvents = (client, channel) => {
       const events = randomEntries(data.events, 10, 'byabbe')
       const embed = new Discord.MessageEmbed()
         .setColor(embedColor)
-        .setTitle(`Events on ${data.date}${ordinal(now.getDate())} :newspaper:`)
+        .setTitle(`Events ${data.date}${ordinal(now.getDate())}`)
 
       events.forEach((event) => {
         let description = event.description
