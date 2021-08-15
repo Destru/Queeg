@@ -2,7 +2,7 @@ const fetch = require('node-fetch')
 
 module.exports = {
   name: 'number',
-  description: `Detailed information on a number.`,
+  description: `Random trivia about a number.`,
   args: true,
   example: '42',
   execute(message, args) {
