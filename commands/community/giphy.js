@@ -5,10 +5,13 @@ module.exports = {
   description: `Fetch a random GIPHY. Uses the name of the channel if arguments are omitted.`,
   example: 'hello world',
   execute(message, args) {
+    const api = 'https://api.giphy.com/v1/gifs/'
+    const key = process.env.GIPHY_TOKEN
+
+    let rating = message.channel.nsfw ? 'r' : 'pg13'
     let tag = encodeURI(args.join(' '))
-    fetch(
-      `https://api.giphy.com/v1/gifs/random?api_key=${process.env.GIPHY_TOKEN}&tag=${tag}&rating=pg13`
-    )
+
+    fetch(`${api}random?api_key=${key}&tag=${tag}&rating=${rating}`)
       .then((response) => response.json())
       .then((data) => {
         message.channel.send(data.data.embed_url)
