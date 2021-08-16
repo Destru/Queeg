@@ -19,7 +19,7 @@ const dailyDeaths = (client, channel) => {
   )
     .then((response) => response.json())
     .then((data) => {
-      const deaths = randomEntries(data.deaths, 24, 'byabbe')
+      const deaths = randomEntries(data.deaths, 15, 'byabbe')
       const embed = new Discord.MessageEmbed()
         .setColor(embedColor)
         .setTitle(`Deaths ${data.date}${ordinal(now.getDate())}`)
@@ -28,7 +28,7 @@ const dailyDeaths = (client, channel) => {
         const description = death.description.replace('[[', '') // bad data :(
         const link = death.wikipedia[0].wikipedia
         let year = death.year
-        if (year.match(/-/)) year = `${year.replace('-', '')} BC`
+        if (year.match(/\-/)) year = `${year.replace('-', '')} BC`
         embed.addField(year, `[${description}](${link})`, true)
       })
 
@@ -46,7 +46,7 @@ const dailyEvents = (client, channel) => {
   )
     .then((response) => response.json())
     .then((data) => {
-      const events = randomEntries(data.events, 10, 'byabbe')
+      const events = randomEntries(data.events, 5, 'byabbe')
       const embed = new Discord.MessageEmbed()
         .setColor(embedColor)
         .setTitle(`Events ${data.date}${ordinal(now.getDate())}`)
@@ -54,7 +54,7 @@ const dailyEvents = (client, channel) => {
       events.forEach((event) => {
         let description = event.description
         let year = event.year
-        if (year.match(/-/)) year = `${year.replace('-', '')} BC`
+        if (year.match(/\-/)) year = `${year.replace('-', '')} BC`
 
         event.wikipedia.forEach((wiki, i) => {
           let link = `[${wiki.title}](${encodeURI(wiki.wikipedia)})`
