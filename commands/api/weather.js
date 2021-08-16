@@ -18,7 +18,7 @@ module.exports = {
     fetch(`${api}weather?q=${city}&units=metric`, {
       method: 'GET',
       headers: {
-        'x-rapidapi-key': '2c3cbcc959msh750496ab26f3b33p148e3ejsn9e92d3adb783',
+        'x-rapidapi-key': process.env.WEATHER_KEY,
         'x-rapidapi-host': 'community-open-weather-map.p.rapidapi.com',
       },
     })
