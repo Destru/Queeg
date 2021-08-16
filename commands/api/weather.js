@@ -13,8 +13,6 @@ module.exports = {
     const city = args.join(' ')
     const embed = new Discord.MessageEmbed().setColor(embedColor)
 
-    let emoji = ''
-
     fetch(`${api}weather?q=${city}&units=metric`, {
       method: 'GET',
       headers: {
@@ -27,6 +25,24 @@ module.exports = {
         if (data.weather && data.weather.length > 0) {
           const description = `(${data.weather[0].description})`
           const weather = data.weather[0].main
+
+          let emoji = ''
+
+          switch (data.weather[0].main) {
+            case 'Clouds':
+              clouds = ['cloud', 'white_sun_cloud']
+              emoji = `:${clouds[Math.floor(Math.random * clouds.length)]}:`
+              break
+            case 'Haze':
+            case 'Mist':
+              emoji = ':fog:'
+              break
+            case 'Rain':
+              emoji = ':cloud_rain:'
+              break
+            default:
+              emoji = ':sunny:'
+          }
 
           embed
             .setDescription(`${weather} ${description} ${emoji}`)
