@@ -1,5 +1,6 @@
 const Discord = require('discord.js')
 const { embedColor } = require('../../config')
+const { capitalize } = require('../../helpers')
 
 module.exports = {
   name: 'yesno',
@@ -10,8 +11,7 @@ module.exports = {
   execute(message, args) {
     const embed = new Discord.MessageEmbed()
       .setColor(embedColor)
-      .setDescription(args.join(' '))
-      .setTitle('Yes/No')
+      .setTitle(capitalize(args.join(' ')))
 
     message.channel.send(embed).then((message) => {
       message.react('👍')

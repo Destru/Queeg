@@ -1,7 +1,6 @@
 const Discord = require('discord.js')
 const fetch = require('node-fetch')
 const { embedColor } = require('../../config')
-const { randomEmoji } = require('../../helpers')
 
 module.exports = {
   name: 'drink',
@@ -10,9 +9,7 @@ module.exports = {
   execute(message) {
     const embed = new Discord.MessageEmbed()
       .setColor(embedColor)
-      .setDescription(
-        `Enjoy your drink, comrade ${message.author} ${randomEmoji()}`
-      )
+      .setDescription(`Enjoy your drink, comrade!`)
 
     fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php')
       .then((response) => response.json())

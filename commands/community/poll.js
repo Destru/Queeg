@@ -9,21 +9,19 @@ module.exports = {
   example: 'CSC? | Communists | Socialists | Creatives',
   execute(message) {
     if (message.content.includes('|')) {
+      let description = ''
       let poll = message.content.split('|')
       let question = poll.shift().replace(`${prefix + this.name} `, '')
 
       const embed = new Discord.MessageEmbed()
         .setColor(embedColor)
-        .setDescription(capitalize(question))
-        .setTitle('Poll')
+        .setTitle(capitalize(question))
 
       poll.forEach((option, i) => {
-        embed.addField(
-          `Option ${alphabetEmoji[i]}`,
-          capitalize(option.trim()),
-          true
-        )
+        description += `\n${alphabetEmoji[i]} ${capitalize(option.trim())}`
       })
+
+      embed.setDescription(description)
 
       message.channel.send(embed).then((message) => {
         for (let i = 0; i < poll.length; i++) {

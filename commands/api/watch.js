@@ -9,9 +9,7 @@ module.exports = {
   args: true,
   example: 'Blade Runner',
   async execute(message, args) {
-    const embed = new Discord.MessageEmbed()
-      .setColor(embedColor)
-      .setTitle('Watch Now')
+    const embed = new Discord.MessageEmbed().setColor(embedColor)
     const matches = await jw.search(encodeURI(args.join(' ')), false, 1)
     const providers = {
       2: { name: 'iTunes' },
@@ -43,7 +41,7 @@ module.exports = {
         return false
       }
 
-      let description = `**${match.title}** (${match.original_release_year})\n`
+      let description = ''
       let filtered = []
       let formatted = []
       let formattedBuy = []
@@ -76,7 +74,9 @@ module.exports = {
         if (formattedBuy.length) description += `${formattedBuy.join(', ')}`
       }
 
-      embed.setDescription(description)
+      embed
+        .setDescription(description)
+        .setTitle(`${match.title} (${match.original_release_year})`)
     }
     message.channel.send(embed)
   },
