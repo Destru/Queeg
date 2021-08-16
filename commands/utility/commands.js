@@ -24,7 +24,7 @@ module.exports = {
         .setDescription(
           `**TIP:** You can pass a command name as an argument for more information! ` +
             `<@301275924098449408>'s IQ has a six in it, ` +
-            `but it's not 6,000. It's six.`
+            `but it's not 6,000.`
         )
         .setTitle(`Commands`)
 
