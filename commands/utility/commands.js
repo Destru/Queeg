@@ -9,10 +9,13 @@ module.exports = {
   private: true,
   execute(message, args) {
     const { commands } = message.client
-    const commandsAPI = ['dadjoke', 'giphy', 'hackernews', 'weather']
+    const emojiGlitch = message.guild.emojis.cache.find(
+      (emoji) => emoji.name == 'cscglitch'
+    )
+    const glitch = ['dadjoke', 'giphy', 'hackernews', 'weather', 'watch']
 
     if (!args.length) {
-      let api = '',
+      let glitches = '',
         community = '',
         voters = ''
 
@@ -31,13 +34,13 @@ module.exports = {
         .map((command) => {
           const commandTemplate = `\`${prefix}${command.name}\`\n`
 
-          if (commandsAPI.includes(command.name)) api += commandTemplate
+          if (glitch.includes(command.name)) glitches += commandTemplate
           else if (command.restricted === 'voter') voters += commandTemplate
           else community += commandTemplate
         })
 
-      embed.addField(`API 🌍`, api, true)
       embed.addField(`Community <:cscalt:837251418247004205>`, community, true)
+      embed.addField(`Glitches ${emojiGlitch}`, glitches, true)
       embed.addField(`Voters <:upvote:462126280704262144>`, voters, true)
 
       message.channel.send(embed)
