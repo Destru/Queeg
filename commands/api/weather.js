@@ -31,7 +31,7 @@ module.exports = {
           switch (data.weather[0].main) {
             case 'Clouds':
               clouds = ['cloud', 'white_sun_cloud']
-              emoji = `:${clouds[Math.floor(Math.random * clouds.length)]}:`
+              emoji = `:${clouds[Math.floor(Math.random() * clouds.length)]}:`
               break
             case 'Haze':
             case 'Mist':
