@@ -9,14 +9,7 @@ module.exports = {
   private: true,
   execute(message, args) {
     const { commands } = message.client
-    const commandsAPI = [
-      'dadjoke',
-      'giphy',
-      'hackernews',
-      'watch',
-      'weather',
-      'xkcd',
-    ]
+    const commandsAPI = ['dadjoke', 'giphy', 'hackernews', 'weather']
 
     if (!args.length) {
       let api = '',
@@ -43,7 +36,7 @@ module.exports = {
           else community += commandTemplate
         })
 
-      embed.addField(`API <:weylandyutani:847545829035081799>`, api, true)
+      embed.addField(`API 🌍`, api, true)
       embed.addField(`Community <:cscalt:837251418247004205>`, community, true)
       embed.addField(`Voters <:upvote:462126280704262144>`, voters, true)
 
