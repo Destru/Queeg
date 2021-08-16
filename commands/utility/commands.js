@@ -9,14 +9,26 @@ module.exports = {
   private: true,
   execute(message, args) {
     const { commands } = message.client
+    const commandsAPI = [
+      'dadjoke',
+      'giphy',
+      'hackernews',
+      'watch',
+      'weather',
+      'xkcd',
+    ]
 
     if (!args.length) {
-      let community = '',
+      let api = '',
+        community = '',
         voters = ''
+
       const embed = new Discord.MessageEmbed()
         .setColor(embedColor)
         .setDescription(
-          `You can pass a command name as an argument for more information (e.g. \`${prefix}command yesno\`).`
+          `**TIP:** You can pass a command name as an argument for more information! ` +
+            `<@301275924098449408>'s IQ has a six in it, ` +
+            `but it's not 6,000. It's six.`
         )
         .setTitle(`Commands`)
 
@@ -24,11 +36,14 @@ module.exports = {
         .filter((command) => !command.private)
         .sort((a, b) => a.name.localeCompare(b.name))
         .map((command) => {
-          if (command.restricted === 'voter')
-            voters += `\`${prefix}${command.name}\`\n`
-          else community += `\`${prefix}${command.name}\`\n`
+          const commandTemplate = `\`${prefix}${command.name}\`\n`
+
+          if (commandsAPI.includes(command.name)) api += commandTemplate
+          else if (command.restricted === 'voter') voters += commandTemplate
+          else community += commandTemplate
         })
 
+      embed.addField(`API <:weylandyutani:847545829035081799>`, api, true)
       embed.addField(`Community <:cscalt:837251418247004205>`, community, true)
       embed.addField(`Voters <:upvote:462126280704262144>`, voters, true)
 
