@@ -7,10 +7,7 @@ module.exports = {
   description: 'Have a drink.',
   restricted: 'voter',
   execute(message) {
-    const embed = new Discord.MessageEmbed()
-      .setColor(embedColor)
-      .setDescription(`Enjoy your drink, comrade!`)
-      .setFooter(message.author.username, message.author.avatarURL())
+    const embed = new Discord.MessageEmbed().setColor(embedColor)
 
     fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php')
       .then((response) => response.json())
