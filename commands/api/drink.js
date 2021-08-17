@@ -10,6 +10,7 @@ module.exports = {
     const embed = new Discord.MessageEmbed()
       .setColor(embedColor)
       .setDescription(`Enjoy your drink, comrade!`)
+      .setFooter(message.author.username, message.author.avatarURL())
 
     fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php')
       .then((response) => response.json())
@@ -20,14 +21,15 @@ module.exports = {
 
         embed
           .setTitle(drink.strDrink)
+          .setThumbnail()
           .setImage(drink.strDrinkThumb)
           .addField('Category', drink.strCategory, true)
           .addField('Glass', drink.strGlass, true)
           .addField('Recipe', recipe, true)
 
         message.channel.send(embed).then((message) => {
-          message.react('462126280704262144')
-          message.react('462126761098870784')
+          message.react('😋')
+          message.react('🤮')
         })
       })
   },

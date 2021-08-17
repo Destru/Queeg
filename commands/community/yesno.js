@@ -11,8 +11,10 @@ module.exports = {
   execute(message, args) {
     const embed = new Discord.MessageEmbed()
       .setColor(embedColor)
+      .setFooter(message.author.username, message.author.avatarURL())
       .setTitle(capitalize(args.join(' ')))
 
+    if (message) message.delete()
     message.channel.send(embed).then((message) => {
       message.react('👍')
       message.react('👎')

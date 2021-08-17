@@ -15,6 +15,7 @@ module.exports = {
 
       const embed = new Discord.MessageEmbed()
         .setColor(embedColor)
+        .setFooter(message.author.username, message.author.avatarURL())
         .setTitle(capitalize(question))
 
       poll.forEach((option, i) => {
@@ -23,6 +24,7 @@ module.exports = {
 
       embed.setDescription(description)
 
+      if (message) message.delete()
       message.channel.send(embed).then((message) => {
         for (let i = 0; i < poll.length; i++) {
           message.react(alphabetEmoji[i])
