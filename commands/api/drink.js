@@ -25,7 +25,10 @@ module.exports = {
           .addField('Glass', drink.strGlass, true)
           .addField('Recipe', recipe, true)
 
-        message.channel.send(embed)
+        message.channel.send(embed).then((message) => {
+          message.react('462126280704262144')
+          message.react('462126761098870784')
+        })
       })
   },
 }
