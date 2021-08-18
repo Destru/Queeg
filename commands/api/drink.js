@@ -17,12 +17,13 @@ module.exports = {
         const recipe = `[Google](https://google.com/search?q=${query})`
 
         embed
-          .setTitle(drink.strDrink)
-          .setThumbnail()
+          .setAuthor(message.author.username, message.author.avatarURL())
           .setImage(drink.strDrinkThumb)
           .addField('Category', drink.strCategory, true)
           .addField('Glass', drink.strGlass, true)
           .addField('Recipe', recipe, true)
+          .setTitle(drink.strDrink)
+          .setThumbnail()
 
         message.channel.send(embed).then((message) => {
           message.react('😋')
