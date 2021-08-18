@@ -1,5 +1,6 @@
 const Discord = require('discord.js')
 const { embedColor, prefix } = require('../../config')
+const { capitalize } = require('../../helpers')
 
 module.exports = {
   name: 'commands',
@@ -54,7 +55,7 @@ module.exports = {
 
       const embed = new Discord.MessageEmbed()
         .setColor(embedColor)
-        .setTitle(`${prefix}${command.name}`)
+        .setTitle(`${capitalize(command.name)}`)
         .setDescription(command.description)
 
       if (command.example)
@@ -65,9 +66,9 @@ module.exports = {
 
       if (command.aliases)
         embed.addField('Aliases', command.aliases.join(', '), true)
-      embed.addField('Arguments', command.args ? 'true' : 'false', true)
+      embed.addField('Arguments', command.args ? '`true`' : '`false`', true)
       if (command.restricted)
-        embed.addField('Restricted', command.restricted, true)
+        embed.addField('Restricted', capitalize(command.restricted), true)
 
       message.channel.send(embed)
     }
