@@ -57,7 +57,10 @@ const dailyEvents = (client, channel) => {
         if (year.match(/\-/)) year = `${year.replace('-', '')} BC`
 
         event.wikipedia.forEach((wiki, i) => {
-          let link = `[${wiki.title}](${encodeURI(wiki.wikipedia)})`
+          let url = wiki.wikipedia
+          if (url.match(/\)/)) url.replace(/\)/, ')')
+
+          let link = `[${wiki.title}](${url})`
 
           if (i === 0) description += `\n${link}`
           else description += `, ${link}`
