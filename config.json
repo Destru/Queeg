@@ -4,6 +4,7 @@
     "terminal": "405503298951446528"
   },
   "embedColor": "#00ffff",
+  "embedColorBlack": "#2f3136",
   "error": {
     "access": "Access denied.",
     "execute": "Execution error.",

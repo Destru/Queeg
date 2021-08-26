@@ -3,7 +3,7 @@ const cron = require('node-cron')
 const fetch = require('node-fetch')
 const ordinal = require('ordinal/indicator')
 
-const { channel, embedColor } = require('./config')
+const { channel, embedColor, embedColorBlack } = require('./config')
 const { randomEntries } = require('./helpers')
 
 const channelDeaths = '832394205422026813'
@@ -21,7 +21,7 @@ const dailyDeaths = (client, channel) => {
     .then((data) => {
       const deaths = randomEntries(data.deaths, 15, 'byabbe')
       const embed = new Discord.MessageEmbed()
-        .setColor(embedColor)
+        .setColor(embedColorBlack)
         .setTitle(`Deaths ${data.date}${ordinal(now.getDate())}`)
 
       deaths.forEach((death) => {
