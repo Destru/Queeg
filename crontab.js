@@ -58,7 +58,7 @@ const dailyEvents = (client, channel) => {
 
         event.wikipedia.forEach((wiki, i) => {
           let url = wiki.wikipedia
-          if (url.match(/\)/)) url.replace(/\)/, ')')
+          if (url.match(/\)/)) url = url.replace(')', '\\)')
 
           let link = `[${wiki.title}](${url})`
 
