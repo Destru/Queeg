@@ -30,6 +30,8 @@ module.exports = {
           .addField('Recipe', recipe, true)
           .setTitle(drink.strDrink)
 
+        if (drink.strInstructions) embed.setDescription(drink.strInstructions)
+
         message.channel.send(embed).then((message) => {
           message.react('😋')
         })
