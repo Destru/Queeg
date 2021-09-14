@@ -1,23 +1,13 @@
-const fetch = require('node-fetch')
+const { channel, role } = require('../config')
 
 module.exports = {
   name: 'guildMemberAdd',
   execute(member, client) {
-    const channelWelcome = client.channels.cache.get('844871570211995678')
-    const roleSuspect = '829420138079846471'
-    const tag = encodeURI('welcome to the club')
+    const messageChannel = client.channels.cache.get(channel.publicRelations)
 
     if (Date.now() - member.user.createdAt < 1000 * 60 * 60 * 24 * 7) {
-      member.roles.add(roleSuspect)
-      channelWelcome.send(`${member} has been flagged for _Voight-Kampff_.`)
-    } else {
-      fetch(
-        `https://api.giphy.com/v1/gifs/random?api_key=${process.env.GIPHY_TOKEN}&tag=${tag}&rating=pg13`
-      )
-        .then((response) => response.json())
-        .then((data) => {
-          channelWelcome.send(data.data.embed_url)
-        })
+      member.roles.add(role.suspect)
+      messageChannel.send(`${member} has been flagged for _Voight-Kampff_.`)
     }
   },
 }
