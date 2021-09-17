@@ -17,7 +17,9 @@ module.exports = {
           '\n\nContact <@160320553322807296> or <@176003786228105216> for an invite!'
       )
       .setTitle(`Cyberpunk Social Club`)
-      .setThumbnail('https://cyberpunksocial.club/images/csc-ao.png')
+      .setThumbnail(
+        'https://cyberpunksocial.club/images/csc-anarchy-online.png'
+      )
 
     fetch(`${api}org/stats/d/5/name/468996/basicstats.xml?data_type=json`)
       .then((response) => response.json())
