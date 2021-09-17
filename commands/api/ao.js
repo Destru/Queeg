@@ -8,7 +8,7 @@ module.exports = {
   execute(message) {
     const api = 'https://people.anarchy-online.com/'
     const embed = new Discord.MessageEmbed()
-      .setColor('#00ff00')
+      .setColor('#ffff00')
       .setDescription(
         'A friendly terrorist organization on Rubi-Ka. ' +
           'We also sell drugs, ' +
@@ -17,7 +17,7 @@ module.exports = {
           '\n\nContact <@160320553322807296> or <@176003786228105216> for an invite!'
       )
       .setTitle(`Cyberpunk Social Club`)
-      .setThumbnail('https://cyberpunksocial.club/images/csc-clan.png')
+      .setThumbnail('https://cyberpunksocial.club/images/csc-ao.png')
 
     fetch(`${api}org/stats/d/5/name/468996/basicstats.xml?data_type=json`)
       .then((response) => response.json())
