@@ -1,14 +1,22 @@
 const Discord = require('discord.js')
 const fetch = require('node-fetch')
+const { embedColorBlack } = require('../../config')
 
 module.exports = {
   name: 'ao',
   description: `Our comrades on Rubi-Ka.`,
   aliases: ['anarchy', 'anarchyonline'],
-  execute(message) {
+  execute(message, args) {
+    const embed = new Discord.MessageEmbed().setColor(embedColorBlack)
+
+    if (args && args[0] === 'map') {
+      const map = 'https://lcmaps.anarchy-online.com/lc_Live.png'
+      embed.setTitle('Control Map').setImage(`${map}?${Date.now()}`)
+      return message.channel.send(embed)
+    }
+
     const api = 'https://people.anarchy-online.com/'
-    const embed = new Discord.MessageEmbed()
-      .setColor('#ffff00')
+    embed
       .setDescription(
         'A friendly terrorist organization on Rubi-Ka. ' +
           'We also sell drugs, ' +
