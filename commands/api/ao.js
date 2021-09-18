@@ -11,7 +11,11 @@ module.exports = {
 
     if (args && args[0] === 'map') {
       const map = 'https://lcmaps.anarchy-online.com/lc_Live.png'
-      embed.setTitle('Control Map').setImage(`${map}?${Date.now()}`)
+
+      embed
+        .setDescription(`[Live version](${map}) :link:`)
+        .setTitle('Control Map')
+        .setImage(`${map}?${Date.now()}`)
       return message.channel.send(embed)
     }
 
