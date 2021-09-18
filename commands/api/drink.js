@@ -18,23 +18,25 @@ module.exports = {
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
-        const drink = data.drinks[0]
-        const query = encodeURI(`${drink.strDrink} drink recipe`)
-        const recipe = `[Google](https://google.com/search?q=${query})`
+        if (data.drinks) {
+          const drink = data.drinks[0]
+          const query = encodeURI(`${drink.strDrink} drink recipe`)
+          const recipe = `[Google](https://google.com/search?q=${query})`
 
-        embed
-          .setAuthor(message.author.username, message.author.avatarURL())
-          .setImage(drink.strDrinkThumb)
-          .addField('Category', drink.strCategory, true)
-          .addField('Glass', drink.strGlass, true)
-          .addField('Recipe', recipe, true)
-          .setTitle(drink.strDrink)
+          embed
+            .setAuthor(message.author.username, message.author.avatarURL())
+            .setImage(drink.strDrinkThumb)
+            .addField('Category', drink.strCategory, true)
+            .addField('Glass', drink.strGlass, true)
+            .addField('Recipe', recipe, true)
+            .setTitle(drink.strDrink)
 
-        if (drink.strInstructions) embed.setDescription(drink.strInstructions)
+          if (drink.strInstructions) embed.setDescription(drink.strInstructions)
 
-        message.channel.send(embed).then((message) => {
-          message.react('😋')
-        })
+          message.channel.send(embed).then((message) => {
+            message.react('😋')
+          })
+        } else message.channel.send("I don't know that one.")
       })
   },
 }
