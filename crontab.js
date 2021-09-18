@@ -86,8 +86,11 @@ module.exports = {
 
         setTimeout(() => {
           const api = 'https://api.giphy.com/v1/gifs/'
+          const day = new Date(dateString).toLocaleString('en-us', {
+            weekday: 'long',
+          })
           const key = process.env.GIPHY_TOKEN
-          const tag = encodeURI(`good morning`)
+          const tag = encodeURI(`good morning ${day}`)
 
           fetch(`${api}random?api_key=${key}&tag=${tag}`)
             .then((response) => response.json())
