@@ -44,9 +44,10 @@ module.exports = {
               `\nGrunts \`${org.SOLIDERCOUNT}\`` + // sic
               `\nHackers \`${org.FIXERCOUNT}\`` +
               `\nHealbots \`${org.DOCTORCOUNT}\`` +
+              `\nKnights \`${org.KEEPERCOUNT}\`` +
               `\nNerds \`${org.ENGINEEERCOUNT}\`` + // a child made this endpoint
               `\nNinjas \`${org.MACOUNT}\`` +
-              `\nNukes \`${org.NANOCOUNT}\`` +
+              `\nNukers \`${org.NANOCOUNT}\`` +
               `\nSnipers \`${org.AGENTCOUNT}\`` +
               `\nStabbys \`${org.SHADECOUNT}\`` +
               `\nSuits \`${org.BTCOUNT}\`` +

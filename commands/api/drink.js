@@ -12,8 +12,40 @@ module.exports = {
 
     let url = api
 
-    if (args.length > 0) url += `search.php?s=${encodeURI(args.join(' '))}`
-    else url += 'random.php'
+    if (args.length > 0) {
+      const customDrinks = ['sidewalk slammer']
+      const drink = args.join(' ').toLowerCase()
+
+      if (customDrinks.includes(drink)) {
+        switch (drink) {
+          case 'rum and coke':
+            embed
+              .setDescription('Rum, and coke.')
+              .setImage('https://')
+              .setTitle('Rum and Coke')
+          case 'sidewalk slammer':
+            embed
+              .setDescription(
+                'Drink half a bottle of Olde English (40oz). ' +
+                  'Refill said bottle with Four Loko. ' +
+                  'Keep pouring in more Four Loko as needed. ' +
+                  '\n*RoOoxanne* :notes:'
+              )
+              .setImage(
+                'https://cyberpunksocial.club/images/sidewalkslammer.jpg'
+              )
+              .setTitle('Sidewalk Slammer')
+              .addField('Category', 'Liquid Regret', true)
+              .addField('Glass', 'Use the bottle, nerd.', true)
+        }
+        return message.channel.send(embed).then((message) => {
+          message.channel.send(embed).then((message) => {
+            message.react('😋')
+            message.react('830114375053738034')
+          })
+        })
+      } else url += `search.php?s=${encodeURI(args.join(' '))}`
+    } else url += 'random.php'
 
     fetch(url)
       .then((response) => response.json())
