@@ -39,10 +39,8 @@ module.exports = {
               .addField('Glass', 'Use the bottle, nerd.', true)
         }
         return message.channel.send(embed).then((message) => {
-          message.channel.send(embed).then((message) => {
-            message.react('😋')
-            message.react('830114375053738034')
-          })
+          message.react('😋')
+          message.react('830114375053738034')
         })
       } else url += `search.php?s=${encodeURI(args.join(' '))}`
     } else url += 'random.php'
