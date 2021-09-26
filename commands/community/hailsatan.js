@@ -11,8 +11,8 @@ module.exports = {
     } else {
       message.member.roles.add(role.satanist)
       message.channel.send(
-        `You've been granted access to the temple, fellow \`Satanist\`` +
-          `<:satanism:875311775116034049>`
+        `You've been granted access to the temple, fellow \`Satanist\` ` +
+          `<:baphomet:866887258892140574>`
       )
     }
   },
