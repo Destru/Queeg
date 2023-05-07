@@ -43,5 +43,3 @@ http
     res.end('QUEEG 500\n')
   })
   .listen(8080)
-
-console.log('Queeg is running.')
