@@ -13,7 +13,14 @@ module.exports = {
     const emojiGlitch = message.guild.emojis.cache.find(
       (emoji) => emoji.name == 'cscglitch'
     )
-    const glitch = ['dadjoke', 'giphy', 'hackernews', 'weather', 'watch']
+    const glitch = [
+      'dadjoke',
+      'giphy',
+      'hackernews',
+      'insult',
+      'weather',
+      'watch',
+    ]
 
     if (!args.length) {
       let glitches = '',
@@ -23,9 +30,8 @@ module.exports = {
       const embed = new Discord.MessageEmbed()
         .setColor(embedColor)
         .setDescription(
-          `**TIP:** Pass a command name as an argument for more information. ` +
-            `*<@301275924098449408>'s IQ has a six in it, ` +
-            `but it's not 6,000.*`
+          `<@301275924098449408>'s IQ has a six in it, ` +
+            `but it's not 6,000. `
         )
         .setTitle(`Commands`)
 
