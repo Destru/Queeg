@@ -7,12 +7,7 @@ module.exports = {
     fetch(`https://insult.mattbas.org/api/insult.json`)
       .then((response) => response.json())
       .then((data) => {
-        message.channel
-          .send(`${data.insult}, ${message.author}`)
-          .then((message) => {
-            message.react('👍')
-            message.react('👎')
-          })
+        message.channel.send(`${data.insult}, ${message.author}`)
       })
   },
 }

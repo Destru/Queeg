@@ -1,4 +1,3 @@
-const { embedColor } = require('../../config')
 const fetch = require('node-fetch')
 
 module.exports = {
