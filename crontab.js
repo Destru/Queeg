@@ -7,7 +7,7 @@ const { channel, embedColor, embedColorBlack } = require('./config')
 const { randomEntries } = require('./helpers')
 
 const channelDeaths = '832394205422026813'
-const channelEvents = '160320676580818951'
+const channelEvents = '405503298951446528'
 
 const dailyDeaths = (client, channel) => {
   const now = new Date()
