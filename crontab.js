@@ -86,7 +86,7 @@ module.exports = {
 
         setTimeout(() => {
           const api = 'https://api.giphy.com/v1/gifs/'
-          const day = new Date(dateString).toLocaleString('en-us', {
+          const day = new Date().toLocaleString('en-us', {
             weekday: 'long',
           })
           const key = process.env.GIPHY_TOKEN
