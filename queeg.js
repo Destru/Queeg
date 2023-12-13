@@ -39,7 +39,7 @@ client.login()
 const http = require('http')
 http
   .createServer(function (req, res) {
-    res.writeHead(200, { 'Content-Type': 'text/plain' })
-    res.end('Queeg\n')
+    res.writeHead(301, { 'Location': 'https://cyberpunk.social.club' })
+    res.end()
   })
   .listen(8080)
