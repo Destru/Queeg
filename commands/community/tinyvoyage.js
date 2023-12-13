@@ -1,6 +1,7 @@
 const Discord = require('discord.js')
 const { embedColor } = require('../../config')
 const tracery = require('tracery-grammar')
+
 const tiny = {
   origin: [
     '#pattern#',
@@ -573,10 +574,10 @@ const tiny = {
 const voyage = tracery.createGrammar(tiny)
 
 module.exports = {
-  name: 'tiny',
+  name: 'tinyvoyage',
   description: 'Go on a tiny voyage.',
+  aliases: ['tiny'],
   args: false,
-  private: true,
   execute(message, args) {
     const embed = new Discord.MessageEmbed()
       .setColor(embedColor)
