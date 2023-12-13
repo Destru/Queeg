@@ -4,7 +4,7 @@
   "description": "Administrative chatbot for the CSC.",
   "main": "queeg.js",
   "engines": {
-    "node": "12.x",
+    "node": "21.x",
     "npm": "*"
   },
   "scripts": {

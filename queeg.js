@@ -39,7 +39,7 @@ client.login()
 const http = require('http')
 http
   .createServer(function (req, res) {
-    res.writeHead(301, { 'Location': 'https://cyberpunksocial.club' })
+    res.writeHead(301, { Location: 'https://cyberpunksocial.club' })
     res.end()
   })
   .listen(8080)
