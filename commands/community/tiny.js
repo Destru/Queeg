@@ -583,7 +583,7 @@ module.exports = {
       .setDescription(voyage.flatten('#origin#'))
 
     message.channel.send(embed).then((message) => {
-      message.react('👍')
+      message.react('♥')
     })
   },
 }
