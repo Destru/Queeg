@@ -8,7 +8,9 @@ module.exports = {
     fetch(`https://xkcd.com/info.0.json`)
       .then((response) => response.json())
       .then((data) => {
-        message.channel.send(data.img)
+        message.channel.send(data.img).then((message) => {
+          message.react('👍')
+        })
       })
   },
 }
