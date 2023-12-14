@@ -11,7 +11,7 @@ module.exports = {
   execute(message, args) {
     const embed = new Discord.MessageEmbed()
       .setColor(embedColor)
-      .setAuthor(message.author.username, message.author.avatarURL())
+      .setAuthor('', message.author.avatarURL())
       .setTitle(capitalize(args.join(' ')))
 
     if (message) message.delete()

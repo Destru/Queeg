@@ -1,5 +1,5 @@
 const Discord = require('discord.js')
-const { embedColor } = require('../../config')
+const { channel, embedColor } = require('../../config')
 const tracery = require('tracery-grammar')
 
 const tiny = {
@@ -584,9 +584,9 @@ module.exports = {
     const embed = new Discord.MessageEmbed()
       .setColor(embedColor)
       .setDescription(voyage.flatten('#origin#'))
+      .setTitle('🤸‍♀️')
 
-    message.channel.send(embed).then((message) => {
-      message.react('♥')
-    })
+    if (!message) client.channels.cache.get(channel.terminal)
+    else message.channel.send(embed)
   },
 }

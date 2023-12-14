@@ -2,6 +2,7 @@ const Discord = require('discord.js')
 const cron = require('node-cron')
 const fetch = require('node-fetch')
 const ordinal = require('ordinal/indicator')
+const tinyvoyage = require('./commands/community/tinyvoyage')
 
 const { channel, embedColor, embedColorBlack } = require('./config')
 const { randomEntries } = require('./helpers')
@@ -79,7 +80,8 @@ module.exports = {
       '0 8 * * *',
       () => {
         console.log('Running daily tasks.')
-        client.channels.cache.get(channel.terminal).send(`Running daily tasks.`)
+
+        tinyvoyage.execute()
 
         dailyDeaths(client, channelDeaths)
         dailyEvents(client, channelEvents)
@@ -102,7 +104,7 @@ module.exports = {
         }, 5 * 60 * 1000)
       },
       {
-        timezone: 'America/Los_Angeles',
+        timezone: 'Europe/Oslo',
       }
     )
   },

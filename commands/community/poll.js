@@ -14,7 +14,7 @@ module.exports = {
       let question = poll.shift().replace(`${prefix + this.name} `, '')
 
       const embed = new Discord.MessageEmbed()
-        .setAuthor(message.author.username, message.author.avatarURL())
+        .setAuthor('', message.author.avatarURL())
         .setColor(embedColor)
         .setTitle(capitalize(question))
 
