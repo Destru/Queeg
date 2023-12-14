@@ -9,11 +9,10 @@ module.exports = {
   execute(message, args) {
     const embed = new Discord.MessageEmbed().setColor(embedColorBlack)
 
-    if ((args && args[0] === 'map') || command == 'rubi-ka') {
+    if ((args && args[0] === 'map') || message.content.includes('rubi-ka')) {
       const map = 'https://lcmaps.anarchy-online.com/lc_Live.png'
 
       embed
-        .setDescription(`[Live version](${map}) :link:`)
         .setTitle('Control Map')
         .setImage(`${map}?${Date.now()}`)
       return message.channel.send(embed)

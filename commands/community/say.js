@@ -14,7 +14,6 @@ module.exports = {
       )
     }
 
-    if (message) message.delete()
     messageChannel.send(args.join(' '))
   },
 }

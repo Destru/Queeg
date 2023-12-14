@@ -14,7 +14,6 @@ module.exports = {
     fetch(`${api}random?api_key=${key}&tag=${tag}&rating=${rating}`)
       .then((response) => response.json())
       .then((data) => {
-        if (message) message.delete()
         message.channel.send(data.data.embed_url).then((message) => {
           message.react('👍')
           message.react('👎')

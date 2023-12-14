@@ -9,7 +9,6 @@
   "error": {
     "access": "Access denied.",
     "execute": "Execution error.",
-    "operator": "You must be an `Operator` to access this command.",
     "voter": "You must `!vote` to access this command."
   },
   "prefix": "!",

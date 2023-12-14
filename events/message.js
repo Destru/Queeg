@@ -1,5 +1,5 @@
 const { error, prefix, role } = require('../config')
-const { hasRole, isAdmin } = require('../helpers')
+const { hasRole } = require('../helpers')
 
 module.exports = {
   name: 'message',
@@ -22,11 +22,8 @@ module.exports = {
 
       switch (command.restricted) {
         case 'admin':
-          if (isAdmin(message.member.id)) authorized = true
-          break
-        case 'operator':
-          errorMessage = error.operator
-          if (hasRole(message.member, role.operator)) authorized = true
+          if (hasRole(message.member, role.admin)) authorized = true
+          if (message) message.delete()
           break
         case 'voter':
           errorMessage = error.voter

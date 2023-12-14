@@ -578,14 +578,13 @@ module.exports = {
   description: 'Go on a tiny voyage.',
   aliases: ['tiny'],
   private: true,
-  restricted: ['admin'],
+  restricted: 'admin',
   args: false,
   execute(message, args) {
     const embed = new Discord.MessageEmbed()
       .setColor(embedColor)
       .setDescription(voyage.flatten('#origin#'))
 
-    if (message) message.delete()
     message.channel.send(embed).then((message) => {
       message.react('♥')
     })
