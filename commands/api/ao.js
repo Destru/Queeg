@@ -5,11 +5,11 @@ const { embedColorBlack } = require('../../config')
 module.exports = {
   name: 'ao',
   description: `Our comrades on Rubi-Ka.`,
-  aliases: ['anarchy', 'anarchyonline'],
+  aliases: ['anarchy', 'anarchyonline', 'rubi-ka'],
   execute(message, args) {
     const embed = new Discord.MessageEmbed().setColor(embedColorBlack)
 
-    if (args && args[0] === 'map') {
+    if ((args && args[0] === 'map') || command == 'rubi-ka') {
       const map = 'https://lcmaps.anarchy-online.com/lc_Live.png'
 
       embed
@@ -25,11 +25,9 @@ module.exports = {
         'A friendly terrorist organization on Rubi-Ka. ' +
           'We also sell drugs, ' +
           'and offer a variety of other services in a similar vein. ' +
-          '**Fuck Omni-Tek** <:cop:719672826277265418>' +
-          '\n\nContact <@160320553322807296> or <@176003786228105216> for an invite!'
+          '**Fuck Omni-Tek** <:cop:719672826277265418>'
       )
       .setTitle(`Cyberpunk Social Club`)
-      .setThumbnail('https://cyberpunksocial.club/images/csc-ao.gif')
 
     fetch(`${api}org/stats/d/5/name/468996/basicstats.xml?data_type=json`)
       .then((response) => response.json())
