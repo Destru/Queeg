@@ -46,5 +46,5 @@ module.exports = {
     ]
     return emoji[Math.floor(Math.random() * emoji.length)]
   },
-  version: process.env.npm_package_version || '(Development)',
+  version: process.env.npm_package_version,
 }
