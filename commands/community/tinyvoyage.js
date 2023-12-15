@@ -2,7 +2,7 @@ const Discord = require('discord.js')
 const { channel, embedColor } = require('../../config')
 const tracery = require('tracery-grammar')
 
-const tiny = {
+const tinyEmoji = {
   origin: [
     '#pattern#',
     '#pattern#',
@@ -571,22 +571,18 @@ const tiny = {
     '#ss#',
   ],
 }
-const voyage = tracery.createGrammar(tiny)
+const tinyVoyage = tracery.createGrammar(tinyEmoji)
 
 module.exports = {
   name: 'tinyvoyage',
   description: 'Go on a tiny voyage.',
   aliases: ['tiny'],
-  private: true,
-  restricted: 'admin',
   args: false,
-  execute(message, args) {
+  execute(message) {
     const embed = new Discord.MessageEmbed()
       .setColor(embedColor)
-      .setDescription(voyage.flatten('#origin#'))
-      .setTitle('🤸‍♀️')
+      .setDescription(tinyVoyage.flatten('#origin#'))
 
-    if (!message) client.channels.cache.get(channel.terminal)
-    else message.channel.send(embed)
+    message.channel.send(embed)
   },
 }

@@ -2,13 +2,9 @@ const Discord = require('discord.js')
 const cron = require('node-cron')
 const fetch = require('node-fetch')
 const ordinal = require('ordinal/indicator')
-const tinyvoyage = require('./commands/community/tinyvoyage')
 
 const { channel, embedColor, embedColorBlack } = require('./config')
 const { randomEntries } = require('./helpers')
-
-const channelDeaths = '832394205422026813'
-const channelEvents = '405503298951446528'
 
 const dailyDeaths = (client, channel) => {
   const now = new Date()
@@ -49,7 +45,7 @@ const dailyEvents = (client, channel) => {
     .then((data) => {
       const events = randomEntries(data.events, 5, 'byabbe')
       const embed = new Discord.MessageEmbed()
-        .setColor(embedColor)
+        .setColor(embedColorBlack)
         .setTitle(`Events ${data.date}${ordinal(now.getDate())}`)
 
       events.forEach((event) => {
@@ -74,34 +70,36 @@ const dailyEvents = (client, channel) => {
     })
 }
 
+const dailyGiphy = async (client, channel) => {
+  const key = process.env.GIPHY_TOKEN
+  const api = 'https://api.giphy.com/v1/gifs/'
+  const today = new Date().toLocaleString('en-us', {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+  })
+  const tag = encodeURI(today)
+
+  const response = await fetch(`${api}random?api_key=${key}&tag=${tag}`)
+  const data = await response.json()
+
+  client.channels.cache
+    .get(channel)
+    .send(data.data.embed_url)
+    .then((message) => {
+      message.react('👍')
+      message.react('👎')
+    })
+}
+
 module.exports = {
   load: (client) => {
     cron.schedule(
       '0 8 * * *',
       () => {
-        console.log('Running daily tasks.')
-
-        tinyvoyage.execute()
-
-        dailyDeaths(client, channelDeaths)
-        dailyEvents(client, channelEvents)
-
-        setTimeout(() => {
-          const api = 'https://api.giphy.com/v1/gifs/'
-          const day = new Date().toLocaleString('en-us', {
-            weekday: 'long',
-          })
-          const key = process.env.GIPHY_TOKEN
-          const tag = encodeURI(`good morning ${day}`)
-
-          fetch(`${api}random?api_key=${key}&tag=${tag}`)
-            .then((response) => response.json())
-            .then((data) => {
-              client.channels.cache
-                .get(channel.terminal)
-                .send(data.data.embed_url)
-            })
-        }, 5 * 60 * 1000)
+        dailyDeaths(client, channel.graveyard)
+        dailyEvents(client, channel.chat)
+        dailyGiphy(client, channel.terminal)
       },
       {
         timezone: 'Europe/Oslo',
@@ -111,5 +109,6 @@ module.exports = {
   run: (client) => {
     dailyDeaths(client, channel.test)
     dailyEvents(client, channel.test)
+    dailyGiphy(client, channel.test)
   },
 }
