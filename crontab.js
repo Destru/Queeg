@@ -72,9 +72,7 @@ const dailyEvents = (client, channel) => {
 
 const dailyNews = async (client, channel) => {
   const api = 'https://hacker-news.firebaseio.com/v0/'
-  const embed = new Discord.MessageEmbed()
-    .setColor(embedColor)
-    .setTitle(`News 📰`)
+  const embed = new Discord.MessageEmbed().setColor(embedColor).setTitle(`News`)
 
   let articleCount = 10,
     links = []
@@ -101,28 +99,6 @@ const dailyNews = async (client, channel) => {
     })
 }
 
-const dailyGiphy = async (client, channel) => {
-  const key = process.env.GIPHY_TOKEN
-  const api = 'https://api.giphy.com/v1/gifs/'
-  const today = new Date().toLocaleString('en-us', {
-    weekday: 'long',
-    day: 'numeric',
-    month: 'long',
-  })
-  const tag = encodeURI(`cyberpunk ${today}̀`)
-
-  const response = await fetch(`${api}random?api_key=${key}&tag=${tag}`)
-  const data = await response.json()
-
-  client.channels.cache
-    .get(channel)
-    .send(data.data.embed_url)
-    .then((message) => {
-      message.react('👍')
-      message.react('👎')
-    })
-}
-
 module.exports = {
   load: (client) => {
     cron.schedule(
@@ -139,9 +115,8 @@ module.exports = {
     )
   },
   run: (client) => {
-    // dailyDeaths(client, channel.test)
-    // dailyEvents(client, channel.test)
+    dailyDeaths(client, channel.test)
+    dailyEvents(client, channel.test)
     dailyNews(client, channel.test)
-    dailyGiphy(client, channel.test)
   },
 }
