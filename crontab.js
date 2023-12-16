@@ -19,7 +19,7 @@ const dailyDeaths = (client, channel) => {
       const deaths = randomEntries(data.deaths, 15, 'byabbe')
       const embed = new Discord.MessageEmbed()
         .setColor(embedColorBlack)
-        .setTitle(`Deaths ${data.date}${ordinal(now.getDate())}`)
+        .setTitle(`${data.date}${ordinal(now.getDate())}`)
 
       deaths.forEach((death) => {
         const description = death.description.replace('[[', '') // bad data :(
@@ -46,7 +46,7 @@ const dailyEvents = (client, channel) => {
       const events = randomEntries(data.events, 5, 'byabbe')
       const embed = new Discord.MessageEmbed()
         .setColor(embedColorBlack)
-        .setTitle(`Events ${data.date}${ordinal(now.getDate())}`)
+        .setTitle(`${data.date}${ordinal(now.getDate())}`)
 
       events.forEach((event) => {
         let description = event.description
@@ -70,6 +70,37 @@ const dailyEvents = (client, channel) => {
     })
 }
 
+const dailyNews = async (client, channel) => {
+  const api = 'https://hacker-news.firebaseio.com/v0/'
+  const embed = new Discord.MessageEmbed()
+    .setColor(embedColor)
+    .setTitle(`News 📰`)
+
+  let articleCount = 10,
+    links = []
+
+  fetch(`${api}beststories.json`)
+    .then((response) => response.json())
+    .then((data) => {
+      for (let i = 0; i <= articleCount - 1; i++) {
+        fetch(`${api}item/${data[i]}.json`)
+          .then((response) => response.json())
+          .then((data) => {
+            links.push(`[${data.title}](${data.url})`)
+          })
+      }
+
+      const poll = setInterval(() => {
+        if (links.length === articleCount) {
+          clearInterval(poll)
+
+          embed.setDescription(links.join('\n'))
+          client.channels.cache.get(channel).send(embed)
+        }
+      }, 100)
+    })
+}
+
 const dailyGiphy = async (client, channel) => {
   const key = process.env.GIPHY_TOKEN
   const api = 'https://api.giphy.com/v1/gifs/'
@@ -78,7 +109,7 @@ const dailyGiphy = async (client, channel) => {
     day: 'numeric',
     month: 'long',
   })
-  const tag = encodeURI(today)
+  const tag = encodeURI(`cyberpunk ${today}̀`)
 
   const response = await fetch(`${api}random?api_key=${key}&tag=${tag}`)
   const data = await response.json()
@@ -98,7 +129,8 @@ module.exports = {
       '0 8 * * *',
       () => {
         dailyDeaths(client, channel.graveyard)
-        dailyEvents(client, channel.chat)
+        dailyEvents(client, channel.terminal)
+        dailyNews(client, channel.chat)
         dailyGiphy(client, channel.terminal)
       },
       {
@@ -107,8 +139,9 @@ module.exports = {
     )
   },
   run: (client) => {
-    dailyDeaths(client, channel.test)
-    dailyEvents(client, channel.test)
+    // dailyDeaths(client, channel.test)
+    // dailyEvents(client, channel.test)
+    dailyNews(client, channel.test)
     dailyGiphy(client, channel.test)
   },
 }

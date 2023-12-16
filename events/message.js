@@ -23,7 +23,6 @@ module.exports = {
       switch (command.restricted) {
         case 'admin':
           if (hasRole(message.member, role.admin)) authorized = true
-          if (message) message.delete()
           break
         case 'voter':
           errorMessage = error.voter
