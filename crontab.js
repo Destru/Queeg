@@ -102,15 +102,14 @@ const dailyNews = async (client, channel) => {
 module.exports = {
   load: (client) => {
     cron.schedule(
-      '0 8 * * *',
+      '0 7 * * *',
       () => {
         dailyDeaths(client, channel.graveyard)
         dailyEvents(client, channel.terminal)
         dailyNews(client, channel.chat)
-        dailyGiphy(client, channel.terminal)
       },
       {
-        timezone: 'Europe/Oslo',
+        timezone: 'UTC',
       }
     )
   },
