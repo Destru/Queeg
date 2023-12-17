@@ -70,33 +70,71 @@ const dailyEvents = (client, channel) => {
     })
 }
 
+const dailyMeme = async (client, channel) => {
+  const reddit = 'https://www.reddit.com'
+  const redditImages = 'https://i.redd.it/'
+  const memes = []
+
+  const response = await fetch(`${reddit}/r/dankleft/top.json?t=week`)
+  const json = await response.json()
+
+  json.data.children.forEach((post) => {
+    if (post.data.url && post.data.url.startsWith(redditImages))
+      memes.push(post.data.url)
+  })
+
+  const random = memes[Math.floor(Math.random() * memes.length)]
+  client.channels.cache.get(channel).send(random)
+}
+
 const dailyNews = async (client, channel) => {
-  const api = 'https://hacker-news.firebaseio.com/v0/'
-  const embed = new Discord.MessageEmbed().setColor(embedColor).setTitle(`News`)
+  const embed = new Discord.MessageEmbed()
+    .setColor(embedColor)
+    .setTitle(`Last 24 hours`)
 
-  let articleCount = 10,
-    links = []
+  const reddit = 'https://www.reddit.com'
+  const redditImages = 'https://i.redd.it/'
+  const subreddits = [
+    'communism',
+    'socialism',
+    'marxism',
+    'antifascistsofreddit',
+    'anarchocommunism',
+  ]
 
-  fetch(`${api}beststories.json`)
-    .then((response) => response.json())
-    .then((data) => {
-      for (let i = 0; i <= articleCount - 1; i++) {
-        fetch(`${api}item/${data[i]}.json`)
-          .then((response) => response.json())
-          .then((data) => {
-            links.push(`[${data.title}](${data.url})`)
-          })
-      }
+  const formatted = (string) => {
+    string = string.replaceAll('&amp;', '&')
+    if (string.length > 140) return string.substring(0, 140) + '...'
+    else return string
+  }
 
-      const poll = setInterval(() => {
-        if (links.length === articleCount) {
-          clearInterval(poll)
+  let count = 0
+  let postCount = 0
+  let posts = []
 
-          embed.setDescription(links.join('\n'))
-          client.channels.cache.get(channel).send(embed)
+  subreddits.forEach(async (subreddit) => {
+    const response = await fetch(`${reddit}/r/${subreddit}/top.json?t=today`)
+    const json = await response.json()
+
+    json.data.children.forEach((post) => {
+      if (
+        post.data.url &&
+        !post.data.url.startsWith(reddit) &&
+        !post.data.url.startsWith(redditImages)
+      ) {
+        if (postCount < 10) {
+          posts.push(`[${formatted(post.data.title)}](${post.data.url})`)
+          postCount++
         }
-      }, 100)
+      }
     })
+
+    count++
+    if (count === subreddits.length) {
+      embed.setDescription(posts.join('\n'))
+      client.channels.cache.get(channel).send(embed)
+    }
+  })
 }
 
 module.exports = {
@@ -106,7 +144,8 @@ module.exports = {
       () => {
         dailyDeaths(client, channel.graveyard)
         dailyEvents(client, channel.terminal)
-        dailyNews(client, channel.chat)
+        dailyMeme(client, channel.memes)
+        dailyPosts(client, channel.chat)
       },
       {
         timezone: 'UTC',
@@ -114,8 +153,9 @@ module.exports = {
     )
   },
   run: (client) => {
-    dailyDeaths(client, channel.test)
-    dailyEvents(client, channel.test)
+    // dailyDeaths(client, channel.test)
+    // dailyEvents(client, channel.test)
+    dailyMeme(client, channel.test)
     dailyNews(client, channel.test)
   },
 }
