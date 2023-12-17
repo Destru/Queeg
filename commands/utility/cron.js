@@ -1,9 +1,8 @@
 const crontab = require('../../crontab')
 
 module.exports = {
-  name: 'crontab',
-  description: 'Run crontab tasks.',
-  aliases: ['cron'],
+  name: 'cron',
+  description: 'Run cron table.',
   private: true,
   restricted: 'admin',
   execute(message) {

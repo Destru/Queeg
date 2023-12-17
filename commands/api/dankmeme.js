@@ -2,9 +2,10 @@ const { embedColor } = require('../../config')
 const fetch = require('node-fetch')
 
 module.exports = {
-  name: 'dankleft',
+  name: 'dankmeme',
   description: `Random communist meme.`,
   aliases: ['dank', 'meme'],
+  private: true,
   async execute(message) {
     const reddit = 'https://www.reddit.com'
     const redditImages = 'https://i.redd.it/'

@@ -3,7 +3,7 @@ const cron = require('node-cron')
 const fetch = require('node-fetch')
 const ordinal = require('ordinal/indicator')
 
-const { channel, embedColor, embedColorBlack } = require('./config')
+const { channel, embedColorBlack } = require('./config')
 const { randomEntries } = require('./helpers')
 
 const dailyDeaths = (client, channel) => {
@@ -94,9 +94,9 @@ const dailyMeme = async (client, channel) => {
   })
 }
 
-const dailyNews = async (client, channel) => {
+const dailyPosts = async (client, channel) => {
   const embed = new Discord.MessageEmbed()
-    .setColor(embedColor)
+    .setColor('#2f3136')
     .setTitle(`Last 24 hours`)
 
   const reddit = 'https://www.reddit.com'
@@ -146,8 +146,6 @@ module.exports = {
       () => {
         dailyDeaths(client, channel.graveyard)
         dailyEvents(client, channel.terminal)
-        dailyMeme(client, channel.memes)
-        dailyPosts(client, channel.chat)
       },
       {
         timezone: 'UTC',
@@ -158,6 +156,6 @@ module.exports = {
     // dailyDeaths(client, channel.test)
     // dailyEvents(client, channel.test)
     dailyMeme(client, channel.test)
-    dailyNews(client, channel.test)
+    dailyPosts(client, channel.test)
   },
 }
