@@ -13,7 +13,7 @@ module.exports = {
     const emojiGlitch = message.guild.emojis.cache.find(
       (emoji) => emoji.name == 'cscglitch'
     )
-    const glitch = ['dadjoke', 'dankleft', 'hackernews', 'xkcd']
+    const glitch = ['dadjoke', 'dankmeme', 'hackernews', 'number', 'xkcd']
 
     if (!args.length) {
       let glitches = '',
