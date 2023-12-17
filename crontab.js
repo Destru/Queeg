@@ -74,17 +74,24 @@ const dailyMeme = async (client, channel) => {
   const reddit = 'https://www.reddit.com'
   const redditImages = 'https://i.redd.it/'
   const memes = []
+  const subreddits = ['dankleft', 'communismmemes']
 
-  const response = await fetch(`${reddit}/r/dankleft/top.json?t=week`)
-  const json = await response.json()
+  let count = 0
+  subreddits.forEach(async (subreddit) => {
+    const response = await fetch(`${reddit}/r/${subreddit}/top.json?t=today`)
+    const json = await response.json()
 
-  json.data.children.forEach((post) => {
-    if (post.data.url && post.data.url.startsWith(redditImages))
-      memes.push(post.data.url)
+    json.data.children.forEach((post) => {
+      if (post.data.url && post.data.url.startsWith(redditImages))
+        memes.push(post.data.url)
+    })
+
+    count++
+    if (count === subreddits.length) {
+      const random = memes[Math.floor(Math.random() * memes.length)]
+      client.channels.cache.get(channel).send(random)
+    }
   })
-
-  const random = memes[Math.floor(Math.random() * memes.length)]
-  client.channels.cache.get(channel).send(random)
 }
 
 const dailyNews = async (client, channel) => {
@@ -93,13 +100,12 @@ const dailyNews = async (client, channel) => {
     .setTitle(`Last 24 hours`)
 
   const reddit = 'https://www.reddit.com'
-  const redditImages = 'https://i.redd.it/'
   const subreddits = [
-    'communism',
-    'socialism',
-    'marxism',
     'antifascistsofreddit',
-    'anarchocommunism',
+    'marxism',
+    'communism',
+    'union',
+    'marxism_101',
   ]
 
   const formatted = (string) => {
@@ -117,19 +123,15 @@ const dailyNews = async (client, channel) => {
     const json = await response.json()
 
     json.data.children.forEach((post) => {
-      if (
-        post.data.url &&
-        !post.data.url.startsWith(reddit) &&
-        !post.data.url.startsWith(redditImages)
-      ) {
-        if (postCount < 10) {
-          posts.push(`[${formatted(post.data.title)}](${post.data.url})`)
-          postCount++
-        }
-      }
+      if (postCount < 20) {
+        posts.push(
+          `[${formatted(post.data.title)}](${reddit}${post.data.permalink})`
+        )
+        postCount++
+      } else return
     })
-
     count++
+
     if (count === subreddits.length) {
       embed.setDescription(posts.join('\n'))
       client.channels.cache.get(channel).send(embed)
