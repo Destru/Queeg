@@ -6,7 +6,6 @@ module.exports = {
   once: true,
   execute(client) {
     console.log(`Queeg ${version} is online.`)
-    // crontab.load(client)
 
     client.user.setPresence({
       status: 'online',
@@ -16,5 +15,7 @@ module.exports = {
         url: 'https://twitch.tv/notdestru',
       },
     })
+
+    // crontab.load(client)
   },
 }

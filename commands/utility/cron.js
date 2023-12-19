@@ -6,6 +6,6 @@ module.exports = {
   private: true,
   restricted: 'admin',
   execute(message) {
-    crontab.run(message.client)
+    crontab.test(message.client)
   },
 }

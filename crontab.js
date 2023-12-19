@@ -70,51 +70,6 @@ const dailyEvents = (client, channel) => {
     })
 }
 
-const dailyPosts = async (client, channel) => {
-  const embed = new Discord.MessageEmbed()
-    .setColor('#2f3136')
-    .setTitle(`Last 24 hours`)
-
-  const reddit = 'https://www.reddit.com'
-  const subreddits = [
-    'antifascistsofreddit',
-    'marxism',
-    'communism',
-    'union',
-    'marxism_101',
-  ]
-
-  const formatted = (string) => {
-    string = string.replaceAll('&amp;', '&')
-    if (string.length > 140) return string.substring(0, 140) + '...'
-    else return string
-  }
-
-  let count = 0
-  let postCount = 0
-  let posts = []
-
-  subreddits.forEach(async (subreddit) => {
-    const response = await fetch(`${reddit}/r/${subreddit}/top.json?t=today`)
-    const json = await response.json()
-
-    json.data.children.forEach((post) => {
-      if (postCount < 20) {
-        posts.push(
-          `[${formatted(post.data.title)}](${reddit}${post.data.permalink})`
-        )
-        postCount++
-      } else return
-    })
-    count++
-
-    if (count === subreddits.length) {
-      embed.setDescription(posts.join('\n'))
-      client.channels.cache.get(channel).send(embed)
-    }
-  })
-}
-
 module.exports = {
   load: (client) => {
     cron.schedule(
@@ -128,9 +83,8 @@ module.exports = {
       }
     )
   },
-  run: (client) => {
-    // dailyDeaths(client, channel.test)
-    // dailyEvents(client, channel.test)
-    dailyPosts(client, channel.test)
+  test: (client) => {
+    dailyDeaths(client, channel.test)
+    dailyEvents(client, channel.test)
   },
 }
