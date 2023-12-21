@@ -59,7 +59,7 @@ client.on('ready', () => {
   cron.schedule(
     '0 7 * * *',
     () => {
-      dailyReddit(client, channel.terminal)
+      dailyReddit(client, channel.chat)
     },
     {
       timezone: 'UTC',
@@ -76,6 +76,8 @@ client.on('ready', () => {
           message.client.ws.ping
         )}ms`
       )
+    } else if (command === '!dailies') {
+      dailyReddit(client, message.channel.id)
     } else if (command === '!dankmeme') {
       const reddit = 'https://www.reddit.com'
       const redditImages = 'https://i.redd.it/'
