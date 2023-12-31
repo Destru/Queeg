@@ -8,11 +8,16 @@ const { channel, embedColorBlack } = require('./config')
 
 const dailyReddit = async (client, channel) => {
   const embed = new Discord.MessageEmbed()
-    .setColor('#2f3136')
+    .setColor(embedColorBlack)
     .setTitle(`Reddit Daily`)
 
   const reddit = 'https://www.reddit.com'
-  const subreddits = ['antifascistsofreddit', 'marxism', 'communism']
+  const subreddits = [
+    'antifascistsofreddit',
+    'cyberpunk',
+    'marxism',
+    'communism',
+  ]
 
   const formatted = (string) => {
     string = string.replaceAll('&amp;', '&')
@@ -76,30 +81,38 @@ client.on('ready', () => {
           message.client.ws.ping
         )}ms`
       )
-    } else if (command === '!dailies') {
-      dailyReddit(client, message.channel.id)
-    } else if (command === '!dankmeme') {
-      const reddit = 'https://www.reddit.com'
-      const redditImages = 'https://i.redd.it/'
-      const memes = []
-      const subreddits = ['dankleft', 'communismmemes']
+    }
 
-      let count = 0
-      subreddits.forEach(async (subreddit) => {
-        const response = await fetch(`${reddit}/r/${subreddit}/top.json?t=day`)
-        const json = await response.json()
+    if (message.author.id === '160320553322807296') {
+      const adminCommands = ['!reddit', '!dailymeme', '!reboot']
+      if (adminCommands.includes(command)) message.delete()
+      if (command === '!reddit') {
+        dailyReddit(client, message.channel.id)
+      } else if (command === '!dankmeme') {
+        const reddit = 'https://www.reddit.com'
+        const redditImages = 'https://i.redd.it/'
+        const memes = []
+        const subreddits = ['dankleft', 'communismmemes']
 
-        json.data.children.forEach((post) => {
-          if (post.data.url && post.data.url.startsWith(redditImages))
-            memes.push(post.data.url)
+        let count = 0
+        subreddits.forEach(async (subreddit) => {
+          const response = await fetch(
+            `${reddit}/r/${subreddit}/top.json?t=day`
+          )
+          const json = await response.json()
+
+          json.data.children.forEach((post) => {
+            if (post.data.url && post.data.url.startsWith(redditImages))
+              memes.push(post.data.url)
+          })
+
+          count++
+          if (count === subreddits.length) {
+            const random = memes[Math.floor(Math.random() * memes.length)]
+            message.channel.send(random)
+          }
         })
-
-        count++
-        if (count === subreddits.length) {
-          const random = memes[Math.floor(Math.random() * memes.length)]
-          message.channel.send(random)
-        }
-      })
+      }
     }
   })
 })
