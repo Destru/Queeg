@@ -64,7 +64,7 @@ client.on('ready', () => {
   cron.schedule(
     '0 7 * * *',
     () => {
-      dailyReddit(client, channel.chat)
+      // dailyReddit(client, channel.chat)
     },
     {
       timezone: 'UTC',

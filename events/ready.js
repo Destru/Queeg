@@ -7,14 +7,14 @@ module.exports = {
   execute(client) {
     console.log(`Queeg ${version} is online.`)
 
-    client.user.setPresence({
-      status: 'online',
-      activity: {
-        name: 'Socialist Propaganda',
-        type: 'STREAMING',
-        url: 'https://twitch.tv/notdestru',
-      },
-    })
+    // client.user.setPresence({
+    //   status: 'online',
+    //   activity: {
+    //     name: 'Socialist Propaganda',
+    //     type: 'STREAMING',
+    //     url: 'https://twitch.tv/notdestru',
+    //   },
+    // })
 
     // crontab.load(client)
   },
