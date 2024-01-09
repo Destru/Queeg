@@ -12,9 +12,7 @@ module.exports = {
     if ((args && args[0] === 'map') || message.content.includes('rubi-ka')) {
       const map = 'https://lcmaps.anarchy-online.com/lc_Live.png'
 
-      embed
-        .setTitle('Control Map')
-        .setImage(`${map}?${Date.now()}`)
+      embed.setTitle('Control Map').setImage(`${map}?${Date.now()}`)
       return message.channel.send(embed)
     }
 
@@ -54,21 +52,18 @@ module.exports = {
             inline: true,
           },
           {
-            name: 'Status',
+            name: 'Stats',
             value:
               `Avg. Level \`${org.AVGLVL}\`` +
               `\nConscripts \`${org.NUMMEMBERS}\`` +
-              `\nEngineered \`${org.ATROXCOUNT}\`` +
-              `\nHumans \`${org.NANORACECOUNT}\`` +
-              `\nMutants \`${org.SOLITUSCOUNT}\`` +
-              `\nPenises \`${org.MALECOUNT}\`` +
-              `\nVaginas \`${org.FEMALECOUNT}\``,
+              `\nAtrox \`${org.ATROXCOUNT}\`` +
+              `\nNanomage \`${org.NANORACECOUNT}\`` +
+              `\nSolitus \`${org.SOLITUSCOUNT}\``,
             inline: true,
           },
           {
             name: 'Resources',
-            value:
-              '[Download Anarchy Online](https://www.anarchy-online.com) <:ao:882166009274990602>',
+            value: '[Download Anarchy Online](https://www.anarchy-online.com)',
           }
         )
 
