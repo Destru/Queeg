@@ -1,13 +1,14 @@
 module.exports = {
   name: 'power',
-  description: 'Calculate power bill.',
+  description: 'Calculate subsidized power bill in Norway.',
+  aliases: ['powerbill'],
   args: true,
-  example: 'mWh kWh',
+  example: 'NOK/MWh kWh',
   private: true,
   execute(message, args) {
-    const marketmWh = parseFloat(args[0])
+    const marketMWh = parseFloat(args[0])
     const kWh = args[1]
-    const marketkWh = marketmWh / 1000
+    const marketkWh = marketMWh / 1000
     const subsidyThreshold = 0.73
 
     let price = marketkWh
@@ -25,10 +26,10 @@ module.exports = {
     subFinal = (subsidized * kWh).toFixed(2)
     unsubFinal = (unsubsidized * kWh).toFixed(2)
 
-    message.channel.send(`${priceFinal} NOK (${price} NOK * ${kWh} kWh)`)
+    message.channel.send(`NOK ${priceFinal} (${price} * ${kWh} kWh)`)
     if (subsidized > 0)
       message.channel.send(
-        `${subFinal} NOK subsidized (${unsubFinal} NOK paid)`
+        `NOK ${subFinal} subsidized (${unsubFinal} included)`
       )
   },
 }
