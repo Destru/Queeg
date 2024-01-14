@@ -88,28 +88,37 @@ client.on('ready', () => {
       if (adminCommands.includes(command)) message.delete()
       if (command === '!reddit') {
         dailyReddit(client, message.channel.id)
-      } else if (command === '!dankmeme') {
-        const reddit = 'https://www.reddit.com'
+      } else if (command === '!dankmeme' || 'dank' || 'debug') {
+        const reddit = 'https://www.redditz.com'
         const redditImages = 'https://i.redd.it/'
         const memes = []
         const subreddits = ['dankleft', 'communismmemes']
 
         let count = 0
-        subreddits.forEach(async (subreddit) => {
-          const response = await fetch(
-            `${reddit}/r/${subreddit}/top.json?t=day`
-          )
-          const json = await response.json()
+        let error = false
+        subreddits.every(async (subreddit) => {
+          try {
+            const response = await fetch(
+              `${reddit}/r/${subreddit}/top.json?t=day`
+            )
+            const json = await response.json()
 
-          json.data.children.forEach((post) => {
-            if (post.data.url && post.data.url.startsWith(redditImages))
-              memes.push(post.data.url)
-          })
+            json.data.children.forEach((post) => {
+              if (post.data.url && post.data.url.startsWith(redditImages))
+                memes.push(post.data.url)
+            })
+          } catch (err) {
+            error = err.name
+          }
 
           count++
           if (count === subreddits.length) {
-            const random = memes[Math.floor(Math.random() * memes.length)]
-            message.channel.send(random)
+            if (error) {
+              message.channel.send(error)
+            } else {
+              const random = memes[Math.floor(Math.random() * memes.length)]
+              message.channel.send(random)
+            }
           }
         })
       }
