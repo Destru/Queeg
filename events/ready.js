@@ -16,6 +16,6 @@ module.exports = {
       },
     })
 
-    // crontab.load(client)
+    crontab.execute(client)
   },
 }

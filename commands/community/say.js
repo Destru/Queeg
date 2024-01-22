@@ -2,9 +2,9 @@ module.exports = {
   name: 'say',
   description: 'Send a message.',
   args: true,
+  delete: true,
   private: true,
   restricted: 'admin',
-  example: `#admin ping`,
   execute(message, args) {
     let messageChannel = message.channel
 

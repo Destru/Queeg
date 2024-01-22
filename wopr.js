@@ -6,7 +6,7 @@ const fetch = require('node-fetch')
 const client = new Discord.Client()
 const { channel, embedColorBlack } = require('./config')
 
-const dailyReddit = async (client, channel) => {
+const redditDaily = async (client, channel) => {
   const embed = new Discord.MessageEmbed()
     .setColor(embedColorBlack)
     .setTitle(`Reddit Daily`)
@@ -28,24 +28,66 @@ const dailyReddit = async (client, channel) => {
   let count = 0
   let postCount = 0
   let posts = []
+  let error = false
 
   subreddits.forEach(async (subreddit) => {
-    const response = await fetch(`${reddit}/r/${subreddit}/top.json?t=today`)
-    const json = await response.json()
+    try {
+      const response = await fetch(`${reddit}/r/${subreddit}/top.json?t=today`)
+      const json = await response.json()
 
-    json.data.children.forEach((post) => {
-      if (postCount < 10) {
-        posts.push(
-          `[${formatted(post.data.title)}](${reddit}${post.data.permalink})`
-        )
-        postCount++
-      } else return
-    })
+      json.data.children.forEach((post) => {
+        if (postCount < 10) {
+          posts.push(
+            `[${formatted(post.data.title)}](${reddit}${post.data.permalink})`
+          )
+          postCount++
+        } else return
+      })
+    } catch (err) {
+      error = err.name
+    }
     count++
 
     if (count === subreddits.length) {
-      embed.setDescription(posts.join('\n'))
-      client.channels.cache.get(channel).send(embed)
+      if (error) {
+        client.channels.cache.get(channel).send(error)
+      } else {
+        embed.setDescription(posts.join('\n'))
+        client.channels.cache.get(channel).send(embed)
+      }
+    }
+  })
+}
+const redditMeme = async (client, channel) => {
+  const reddit = 'https://www.reddit.com'
+  const redditImages = 'https://i.redd.it/'
+  const memes = []
+  const subreddits = ['dankleft', 'communismmemes']
+
+  let count = 0
+  let error = false
+
+  subreddits.forEach(async (subreddit) => {
+    try {
+      const response = await fetch(`${reddit}/r/${subreddit}/top.json?t=day`)
+      const json = await response.json()
+
+      json.data.children.forEach((post) => {
+        if (post.data.url && post.data.url.startsWith(redditImages))
+          memes.push(post.data.url)
+      })
+    } catch (err) {
+      error = err.name
+    }
+    count++
+
+    if (count === subreddits.length) {
+      if (error) {
+        client.channels.cache.get(channel).send(error)
+      } else {
+        const random = memes[Math.floor(Math.random() * memes.length)]
+        client.channels.cache.get(channel).send(random)
+      }
     }
   })
 }
@@ -61,16 +103,6 @@ client.on('ready', () => {
     },
   })
 
-  cron.schedule(
-    '0 7 * * *',
-    () => {
-      // dailyReddit(client, channel.chat)
-    },
-    {
-      timezone: 'UTC',
-    }
-  )
-
   client.on('message', (message) => {
     const args = message.content.split(' ')
     const command = args[0].toLowerCase().trim()
@@ -84,43 +116,11 @@ client.on('ready', () => {
     }
 
     if (message.author.id === '160320553322807296') {
-      const adminCommands = ['!reddit', '!dailymeme', '!reboot']
-      if (adminCommands.includes(command)) message.delete()
+      if (message) message.delete()
       if (command === '!reddit') {
-        dailyReddit(client, message.channel.id)
-      } else if (command === '!dankmeme' || 'dank' || 'debug') {
-        const reddit = 'https://www.redditz.com'
-        const redditImages = 'https://i.redd.it/'
-        const memes = []
-        const subreddits = ['dankleft', 'communismmemes']
-
-        let count = 0
-        let error = false
-        subreddits.every(async (subreddit) => {
-          try {
-            const response = await fetch(
-              `${reddit}/r/${subreddit}/top.json?t=day`
-            )
-            const json = await response.json()
-
-            json.data.children.forEach((post) => {
-              if (post.data.url && post.data.url.startsWith(redditImages))
-                memes.push(post.data.url)
-            })
-          } catch (err) {
-            error = err.name
-          }
-
-          count++
-          if (count === subreddits.length) {
-            if (error) {
-              message.channel.send(error)
-            } else {
-              const random = memes[Math.floor(Math.random() * memes.length)]
-              message.channel.send(random)
-            }
-          }
-        })
+        redditDaily(client, message.channel.id)
+      } else if (command === '!meme') {
+        redditMeme(client, message.channel.id)
       }
     }
   })

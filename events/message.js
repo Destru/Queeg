@@ -39,6 +39,8 @@ module.exports = {
       return message.channel.send(errorMessage)
     }
 
+    if (command.delete && message) message.delete()
+
     try {
       command.execute(message, args)
     } catch (e) {

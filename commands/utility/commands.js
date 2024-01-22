@@ -22,10 +22,6 @@ module.exports = {
 
       const embed = new Discord.MessageEmbed()
         .setColor(embedColor)
-        .setDescription(
-          `<@301275924098449408>'s IQ has a six in it, ` +
-            `but it's not 6,000. `
-        )
         .setTitle(`Commands`)
 
       commands

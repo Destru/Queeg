@@ -7,6 +7,7 @@ module.exports = {
   description: 'Ask a yes/no question.',
   aliases: ['ask'],
   args: true,
+  delete: true,
   example: 'TNG > DS9',
   execute(message, args) {
     const embed = new Discord.MessageEmbed()
@@ -14,7 +15,6 @@ module.exports = {
       .setAuthor('', message.author.avatarURL())
       .setTitle(capitalize(args.join(' ')))
 
-    if (message) message.delete()
     message.channel.send(embed).then((message) => {
       message.react('👍')
       message.react('👎')
