@@ -6,16 +6,15 @@ const { channel, embedColorBlack } = require('./config')
 const healthCheck = (client, channel) => {
   const embed = new Discord.MessageEmbed()
     .setColor(embedColorBlack)
-    .setTitle('How was your week?')
-    .setDescription('🟢 Great!\n🟡 OK\n🔴 Terrible ')
+    .setTitle('How was your week, comrade?')
 
   client.channels.cache
     .get(channel)
     .send(embed)
     .then((message) => {
-      message.react('🟢')
-      message.react('🟡')
-      message.react('🔴')
+      message.react('🥳')
+      message.react('👍')
+      message.react('👎')
     })
 }
 
