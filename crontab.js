@@ -67,9 +67,9 @@ const dailies = (client, channel) => {
 
 module.exports = {
   execute: (client) => {
-    cron.schedule('0 10 * * *', () => {
-      dailies(client, channel.terminal)
-    })
+    // cron.schedule('0 10 * * *', () => {
+    //   dailies(client, channel.terminal)
+    // })
     cron.schedule('0 10 * * 5', () => {
       healthCheck(client, channel.chat)
     })
