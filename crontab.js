@@ -75,7 +75,7 @@ module.exports = {
     })
   },
   test: (client) => {
-    healthCheck(client, channel.test)
-    dailies(client, channel.test)
+    dailies(client, channel.machinecity)
+    healthCheck(client, channel.machinecity)
   },
 }
