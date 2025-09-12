@@ -15,10 +15,8 @@ const healthCheck = (client, channel) => {
     .get(channel)
     .send(embed)
     .then((message) => {
-      message.react('♥️')
       message.react('👍')
       message.react('👎')
-      message.react('💀')
     })
 }
 
